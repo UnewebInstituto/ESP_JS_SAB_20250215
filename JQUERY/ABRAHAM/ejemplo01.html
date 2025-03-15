@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js" ></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+
+    <h1>Ejemplo01</h1>
+
+    <p id="t1" class="cp" ><b>111 Lorem ipsum dolor sit amet consectetur</b> adipisicing elit. Facilis, excepturi ab, in maiores rem impedit blanditiis id ipsa voluptatum <u>magnam adipisci totam animi quo officia.</u> Incidunt, error voluptas. Magnam error fugiat ad, in quod id autem provident dolorum natus <s>quibusdam reprehenderit sit ea maiores temporibus</s> eaque nam officiis accusamus quis.</p>
+    
+    <p id="t2" class="cp" >222 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, excepturi ab, in maiores rem impedit blanditiis id ipsa voluptatum magnam adipisci totam animi quo officia. Incidunt, error voluptas. Magnam error fugiat ad, in quod id autem provident dolorum natus quibusdam reprehenderit sit ea maiores temporibus eaque nam officiis accusamus quis.</p>
+
+    <p id="t3" class="cp" >333 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, excepturi ab, in maiores rem impedit blanditiis id ipsa voluptatum magnam adipisci totam animi quo officia. Incidunt, error voluptas. Magnam error fugiat ad, in quod id autem provident dolorum natus quibusdam reprehenderit sit ea maiores temporibus eaque nam officiis accusamus quis.</p>
+
+    <hr>
+    <input type="text" name="curso" value="Curso Jquery">
+    <hr>
+    <button id="btnObtenerHtml" class="btn btn-primary">Obtener Html</button>
+    <button id="btnObtenerText" class="btn btn-warning">Obtener Text</button>
+    <button id="btnObtenerVal" class="btn btn-success">Obtener Valor</button>
+    <hr>
+        <div id="salida" ></div>
+    <hr>
+    
+    </div>
+
+    <script>
+        $("#btnObtenerHtml").click(function (){
+            //asignando un valor al div de salida, a traves del método del selector (objeto)
+            $("#salida").html($("#t1").html());
+        });
+
+        $("#btnObtenerText").click(function (){
+            //asignando un valor al div de salida, a traves del método del selector (objeto)
+            $("#salida").text($("#t1").html());
+        });
+        $("#btnObtenerVal").click(function (){
+            //asignando un valor al div de salida, a traves del método del selector (objeto)
+            //input cuyo nombre sea curo1
+            let contenido= $("input[name=curso]").val();
+            $("#salida").html(contenido);
+        });
+    </script>
+
+</body>
+</html>

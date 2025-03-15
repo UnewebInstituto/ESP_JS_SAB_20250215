@@ -1,0 +1,18 @@
+.mensaje{
+    padding: 10px;
+    text-align: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    color: black;
+    width: 50%;
+}
+.error{
+    background-color: lightcoral;
+}
+.alerta{
+    background-color: lightsalmon;
+}
+.exito{
+    background-color: lightgreen;
+}

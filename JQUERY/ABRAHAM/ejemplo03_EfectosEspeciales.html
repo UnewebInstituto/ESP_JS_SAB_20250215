@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js" ></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <title>Document</title>
+    <style>
+        #titulo, #contenido{
+            width: 50%;
+            margin-left: 25%;
+            background-color:skyblue;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        #titulo:hover{
+            cursor: pointer;
+        }
+        #contenido{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    <h1>Ejemplo03 Efectos Especiales</h1>
+
+    <p id="t1" class="cp" ><b>111 Lorem ipsum dolor sit amet consectetur</b> adipisicing elit. Facilis, excepturi ab, in maiores rem impedit blanditiis id ipsa voluptatum <u>magnam adipisci totam animi quo officia.</u> Incidunt, error voluptas. Magnam error fugiat ad, in quod id autem provident dolorum natus <s>quibusdam reprehenderit sit ea maiores temporibus</s> eaque nam officiis accusamus quis.</p>
+    
+    <p id="t2" class="cp" >222 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, excepturi ab, in maiores rem impedit blanditiis id ipsa voluptatum magnam adipisci totam animi quo officia. Incidunt, error voluptas. Magnam error fugiat ad, in quod id autem provident dolorum natus quibusdam reprehenderit sit ea maiores temporibus eaque nam officiis accusamus quis.</p>
+
+    <p id="t3" class="cp" >333 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, excepturi ab, in maiores rem impedit blanditiis id ipsa voluptatum magnam adipisci totam animi quo officia. Incidunt, error voluptas. Magnam error fugiat ad, in quod id autem provident dolorum natus quibusdam reprehenderit sit ea maiores temporibus eaque nam officiis accusamus quis. <br>
+        <img src="../img/4.jfif" alt="" style="width: 200px;">
+    </p>
+    <hr>
+    <button id="btnOcultarInmediato" class="btn btn-primary">Ocultar/Mostrar de inmediato</button>
+    <button id="btnOcultarDespacio" class="btn btn-warning">Ocultar/Mostrar Despacio</button>
+    <button id="btnOcultarTemporizado" class="btn btn-success">Obtener/Mostrar Temporizado</button>
+    <hr>
+    <button id="btnAlternarInmediato" class="btn btn-primary">Alternar de inmediato</button>
+    <button id="btnAlternarDespacio" class="btn btn-warning">Alternar Despacio</button>
+    <button id="btnAlternarTemporizado" class="btn btn-success">Alternar Temporizado</button>
+
+    <hr>
+        <div id="titulo">Hacer click para mostrar el contenido</div>
+        <div id="contenido">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum nam laudantium sapiente? Non aliquid incidunt officiis, sit, iure deserunt eius ratione assumenda at ex tempora doloremque. Eos distinctio cumque possimus excepturi laborum a harum ducimus corporis nulla perferendis quis quaerat iusto, vero, facilis earum placeat sit deleniti? A error hic dolorum, nostrum minima cupiditate nam impedit officia laborum. Soluta, dolorem? Velit quos autem eos optio sequi sapiente praesentium nam rerum cum molestiae, libero dolores sed. Alias obcaecati impedit nulla, mollitia quia facere expedita odit quibusdam doloremque eveniet vel placeat, sunt amet! Quod id accusamus assumenda impedit vero, animi doloribus harum unde modi voluptas laboriosam possimus dignissimos exercitationem praesentium minus ex soluta voluptatibus facilis. Id eos ad officia? Provident minima optio ex fugit fugiat odit reprehenderit quas excepturi, ipsum eius temporibus possimus dolorem animi maiores et, voluptatibus molestiae nobis doloremque quam est nam omnis? Sint odio aut repudiandae accusantium harum tenetur expedita, consectetur quisquam facere minus magni, dolorem placeat culpa! Enim, temporibus! Commodi voluptates quam porro ea repellendus doloribus, ab ullam consequatur ut id reiciendis accusamus sapiente dolorem mollitia quisquam facere quaerat provident officia! Consequuntur, animi cum, voluptas rem sapiente assumenda, facilis voluptatum quae quisquam rerum reprehenderit soluta. Maxime, ipsam at.</div>
+    <hr>
+    
+    </div>
+
+    <script>
+        $("#btnOcultarInmediato").click(function (){
+        if (ctrl1){
+            $("#t1").hide();
+            ctrl1=false;
+        }else{
+            $("#t1").show();
+            ctrl1=true;
+        }
+                
+        });
+
+        $("#btnOcultarDespacio").click(function (){
+        if (ctrl2){
+            $("#t2").hide("sleep")
+            ctrl2=false;
+        }else{
+            $("#t2").show("sleep")
+            ctrl2=true;
+        }
+            });
+
+        $("#btnOcultarTemporizado").click(function (){
+        if (ctrl3){
+            $("#t3").hide(3000);
+            ctrl3=false;
+        }else{
+            $("#t3").show(3000);
+            ctrl3=true;
+        }
+        
+        });
+
+        //De esta manera es mejor
+
+        $("#btnAlternarInmediato").click(function (){
+            $("#t1").toggle();   
+        });
+
+        $("#btnAlternarDespacio").click(function (){
+            $("#t2").toggle("sleep");
+            });
+
+        $("#btnAlternarTemporizado").click(function (){
+            $("#t3").toggle(3000);    
+        });
+
+        $("#titulo").click(function (){
+            if(ctrl4){
+                //$("#contenido").slideDown();
+                //$("#contenido").slideDown("sleep");
+                $("#contenido").slideDown(3000);
+                $("#titulo").html("Hacer click para Esconder el contenido");
+                ctrl4=false;
+            }else{
+                //$("#contenido").slideUp();
+                //$("#contenido").slideUp("sleep");
+                $("#contenido").slideUp(3000);
+                $("#titulo").html("Hacer click para mostrar el contenido");
+                ctrl4=true;
+            }
+             })
+
+    // Declaración de variables
+
+    var ctrl1= ctrl2= ctrl3= ctrl4=true;
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas{
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejemplo06 Api Canvas</h1>
+    <button onclick="dibujar()">Dibujar</button>
+    <button onclick="borrar()">Borrar</button>
+    <hr>
+    <canvas id="lienzo" width="600px" height="600px"></canvas>
+
+
+    <script>
+
+        function dibujar() {
+            var x = 0;
+            var y = 0;
+            for(let i = 0; i < colores.length; i++){
+                lienzo_contexto.fillStyle = colores[i];
+                lienzo_contexto.fillRect(x, y, 100, 100);
+                x += 100;
+                y += 100;
+            }
+       
+        }
+
+        function borrar(){
+            for (let i = 0; i < colores.length; i++) {
+                lienzo_contexto.clearRect(0, 0, 600, 600);
+                var x = 0;
+                var y = 0;
+            }
+        }
+        
+        //Declaracion de Variable e inicialización
+
+        var lienzo = document.getElementById('lienzo');
+        var lienzo_contexto = lienzo.getContext('2d');
+            var colores = ['yellow', 'blue', 'red', 'green', 'orange', 'purple'];
+            var x = 0;
+            var y = 0;
+
+           
+            
+    
+
+        
+        
+    </script>
+</body>
+</html>

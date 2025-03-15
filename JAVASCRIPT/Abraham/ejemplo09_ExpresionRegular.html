@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Al trabajar con boostrap todo debe estar en un contenedor -->
+    <div class="container">
+        <h1>Expresiones Regulares</h1>
+        <form action="">
+            <div class="form-group">
+                <label for="">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" onblur="validarNombre()">
+                <div id="msjNombre"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Apellido</label>
+                <input type="text" class="form-control" name="apellido" id="apellido" onblur="validarApellido()">
+                <div id="msjApellido"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Correo Eléctronico</label>
+                <input type="email" class="form-control" name="correo" id="correo" onblur="validarCorreo()">
+                <div id="msjCorreo"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Contrasena</label>
+                <input type="password" class="form-control" name="clave1" id="clave1" onblur="validarClave1()">
+                <div id="msjClave1"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Repetir Clave</label>
+                <input type="password" class="form-control" name="clave2" id="clave2" onblur="validarClave2()">
+                <div id="msjClave2"></div>
+            </div>
+            <div class="form-group" style="margin-top: 20px;">
+                <button id="btnEnviar" class="btn btn-success" disabled>Enviar</button>
+                <button id="btnLimpiar" class="btn btn-warning">Limpiar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        //Declaración de Funciones
+
+        function validarControles() {
+            console.log('estoy en validarNombre()');
+            if (ctrlNombre == true && ctrlApellido == true && ctrlCorreo == true && ctrlClave1 == true && ctrlClave2 == true) {
+                document.getElementById("btnEnviar").disabled = false;
+            }
+            else {
+                document.getElementById("btnEnviar").disabled = true;
+            }
+        }
+
+        function validarNombre() {
+            //ExpresionRegular
+            console.log('nombre');
+            let epNombre =/^[a-zA-Z\s]+$/;
+            let nombre = document.getElementById("nombre").value;
+            let msjNombre = document.getElementById("msjNombre");
+            if (epNombre.test(nombre)) {
+                console.log("SI");
+                ctrlNombre = true;
+                msjNombre.innerHTML = "";
+            } else {
+                console.log("NO");
+                ctrlNombre = false;
+                msjNombre.style.fontSize = "14px";
+                msjNombre.style.color = "red";
+                msjNombre.innerHTML = "ERROR: Solo se admiten letras y espacios en blanco";
+            }
+        }
+
+        //Declaracion de Variables
+        let ctrlNombre = false;
+        let ctrlApellido = false;
+        let ctrlCorreo = false;
+        let ctrlClave1 = false;
+        let ctrlClave2 = false;
+
+    </script>
+</body>
+
+</html>

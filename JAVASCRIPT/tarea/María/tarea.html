@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea</title>
+    <!--<link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script> -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Expresiones Regulares</h1>
+        <form action="">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" onblur="validarNombre()">
+                <div id="msjNombre"></div>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" name="apellido" id="apellido" class="form-control" onblur="validarApellido()">
+                <div id="msjApellido"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" onblur="validarEmail()">
+                <div id="msjEmail"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Clave:</label>
+                <input type="password" name="clave1" id="clave1" class="form-control" onblur="validarClave1()">
+                <div id="msjClave1"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Repetir Clave:</label>
+                <input type="password" name="clave2" id="clave2" class="form-control" onblur="validarClave2()">
+                <div id="msjClave2"></div>
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+                <button id="btnEnviar" class="btn btn-success" disabled>Enviar</button>
+                <button id="btnLimpiar" class="btn btn-warning" type="reset">Limpiar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Declaración de variables
+        let ctrlNombre = false;
+        let ctrlApellido = false;
+        let ctrlEmail = false;
+        let ctrlClave1 = false;
+        let ctrlClave2 = false;
+
+        //DEclaraciones de funciones
+        function validarNombre() {
+            let expRegNombre = /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/;
+            let nombre = document.getElementById('nombre').value;
+            let msjNombre = document.getElementById('msjNombre');
+            if (expRegNombre.test(nombre)) {
+                ctrlNombre = true;
+                msjNombre.innerHTML = '';
+            } else {
+                ctrlNombre = false;
+                msjNombre.style.fontSize = '14px';
+                msjNombre.style.color = 'red';
+                msjNombre.innerHTML = 'Error: En el nombre solo se admiten letras y espacios en blanco';
+            }
+            validarControles();
+        }
+        function validarApellido() {
+            let expRegApellido = /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/;
+            let apellido = document.getElementById('apellido').value;
+            let msjApellido = document.getElementById('msjApellido');
+            if (expRegApellido.test(apellido)) {
+                ctrlApellido = true;
+                msjApellido.innerHTML = '';
+            } else {
+                ctrlApellido = false;
+                msjApellido.style.fontSize = '14px';
+                msjApellido.style.color = 'red';
+                msjApellido.innerHTML = 'Error: En el apellido solo se admiten letras y espacios en blanco';
+            }
+            validarControles();
+        }
+        function validarEmail() {
+            let expRegEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+            let email = document.getElementById('email').value;
+            let msjEmail = document.getElementById('msjEmail');
+            if (expRegEmail.test(email)) {
+                ctrlEmail = true;
+                msjEmail.innerHTML = '';
+            } else {
+                ctrlEmail = false;
+                msjEmail.style.fontSize = '14px';
+                msjEmail.style.color = 'red';
+                msjEmail.innerHTML = 'Error: El email no es válido';
+            }
+            validarControles();
+        }
+        function validarClave1() {
+            let expRegClave1 = /^[A-Z][a-zA-Z0-9!"#$%&/()=?¿]{5,13}[0-9]$/;
+            let clave1 = document.getElementById('clave1').value;
+            let msjClave1 = document.getElementById('msjClave1');
+            if (expRegClave1.test(clave1)) {
+                msjClave1.innerHTML = '';
+                ctrlClave1 = true;
+            } else {
+                ctrlClave1 = false;
+                msjClave1.style.fontSize = '14px';
+                msjClave1.style.color = 'red';
+                msjClave1.innerHTML = 'Error: La clave debe tener entre 6 y 14 caracteres';
+            }
+            validarControles();
+        }
+
+        function validarClave2() {
+            let clave1 = document.getElementById('clave1').value;
+            let clave2 = document.getElementById('clave2').value;
+            let msjClave2 = document.getElementById('msjClave2');
+            if (clave1 == clave2) {
+                msjClave2.innerHTML = '';
+                ctrlClave2 = true;
+            } else {
+                ctrlClave2 = false;
+                msjClave2.style.fontSize = '14px';
+                msjClave2.style.color = 'red';
+                msjClave2.innerHTML = 'Error: Las claves no coinciden';
+            }
+            validarControles();
+        }
+
+        function validarControles() {
+            console.log(ctrlNombre, ctrlApellido, ctrlEmail, ctrlClave1, ctrlClave2);
+            if (ctrlNombre == true && ctrlApellido == true && ctrlEmail == true && ctrlClave1 == true && ctrlClave2 == true) {
+                document.getElementById('btnEnviar').disabled = false;
+            } else {
+                document.getElementById('btnEnviar').disabled = true;
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+<!--
+file:///C:/ESP_JS_SAB_2025215/JAVASCRIPT/tarea/Mar%C3%ADa/tarea.html?nombre=&apellido=&email=&clave1=&clave2=
+-->

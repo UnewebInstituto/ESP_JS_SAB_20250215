@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+   <script src="./bootstrap/bootstrap.bundle.min.js"></script>
+   <script src="./jquery-3.7.1.js"></script>
+   <title>Document</title>
+</head>
+
+<body>
+   <div class="container">
+      <h1>Ejemplo05 Ajax</h1>
+      <h2>Encuesta de edades</h2>
+
+      <form id="myForm">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="nombre">Nombre del estudiante</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre y apellido del estudiante"
+                class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="edad">Edad del estudiante</label>
+                <input type="number" name="edad" id="edad" placeholder="Ingrese edad del estudiante" min="0" max="120"
+                class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Añadir</button>
+        </div>
+    </form>
+      <div id="resultado"></div>
+   </div>
+   <script>
+      $(document).ready(function(){
+        $('#myForm').on('submit', function(){
+            //Evitar que el formulario se envia al recargar
+            event.preventDefault();
+            //Tomar los valores de los input del formulario
+            var nombre = $('#nombre').val();
+            var edad = $('#edad').val();
+            //Envio al servidor NOdeJS.
+            $.ajax({
+                url: 'api/datos',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({'nombre': nombre, 'edad': edad}),
+                success: function(response){
+                    alert('DATOS ENVIADOS CORRECTAMENTE:' + response);
+                    $('#resultado').html(response);
+                },
+                error: function(xhr, status, error){
+                    alert('ERROR AL ENVIAR LOS DATOS' + error)
+                    $('#resultado').html(error);
+
+                }
+
+            })
+           
+        })
+      });
+
+   </script>
+</body>
+
+</html>

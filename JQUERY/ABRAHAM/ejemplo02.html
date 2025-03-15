@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Ejemplo02 Resolvente</h1>
+
+        <div class="form group">
+            <label for="a">Ingrese el valor de a</label>
+            <input type="number" step="0.5" name="a" id="a" class="form-control">
+        </div>
+        <div class="form group">
+            <label for="b">Ingrese el valor de b</label>
+            <input type="number" step="0.5" name="b" id="b" class="form-control">
+        </div>
+        <div class="form group">
+            <label for="c">Ingrese el valor de c</label>
+            <input type="number" step="0.5" name="c" id="c" class="form-control">
+        </div>
+        <div class="form-group">
+            <button id="btnCalcular" class="btn btn-success">Calcular</button>
+            <button id="btnLimpiar" class="btn btn-danger">Limpiar</button>
+        </div>
+        <div id="salida">
+        </div>
+    </div>
+
+    <script>
+        //declaración de librerías
+        //Declaración de Funciones
+
+        $("#btnCalcular").click(function () {
+            // NaN Not at Number
+
+            a = parseFloat($("#a").val());
+            b = parseFloat($("#b").val());
+            c = parseFloat($("#c").val());
+
+            if (!erNumero.test(a) || !erNumero.test(b) || !erNumero.test(c)) {
+                $("#salida").html("<strong>Error: </strong> Los valores deben ser numéricos!");
+                $("#salida").addClass("alert alert-danger");
+            }
+            else {
+
+
+                if (a == 0) {
+                    $("#salida").addClass("alert alert-danger");
+                    //strong negrita como b, pero es una alerta
+                    $("#salida").html("<strong>Error:</strong> El valor de a debe ser diferente de 0 !")
+                }
+                else {
+                    subRadical = Math.pow(b, 2) - 4 * a * c;
+                    if (subRadical < 0) {
+                        //remover todas las clases
+                        $("#salida").removeAttr("class");
+                        $("#salida").addClass("alert alert-warning");
+                        $("#salida").html("<strong>Error:</strong> Expresión Subradical no puede ser negativo !")
+
+                    } else {
+                        x1 = (-b + Math.sqrt(subRadical)) / (2 * a);
+                        x2 = (-b - Math.sqrt(subRadical)) / (2 * a);
+
+                        $("#salida").removeAttr("class");
+                        $("#salida").addClass("alert alert-success");
+                        $("#salida").html(`<strong>Resultado:</strong> X1 = ${x1} , X2= ${x2} `);
+                    }
+                }
+            }
+
+        })
+
+        $("#btnLimpiar").click(function () {
+            $("#a").val("");
+            $("#b").val("");
+            $("#c").val("");
+            $("#salida").html("");
+            $("#salida").removeAttr("class");
+        })
+
+        //Declaración  de variables
+
+        var a, b, c, x1, x1, subRadical, mensaje;
+        const erNumero = /^\d{1,7}(\.\d{1,6})?$/;
+                          
+        //Cuerpo principal del programa
+
+    </script>
+
+</body>
+
+</html>

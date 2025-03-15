@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+<!--
+<link rel="stylesheet" href="./css/ejemplo09.css">
+-->
+
+<body>
+    <!-- Al trabajar con boostrap todo debe estar en un contenedor -->
+    <div class="container">
+        <br>
+        <h1>Expresiones Regulares</h1>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" onblur="validarNombre()">
+                <div id="msjNombre" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Apellido</label>
+                <input type="text" class="form-control" name="apellido" id="apellido" onblur="validarApellido()">
+                <div id="msjApellido" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Correo Eléctronico</label>
+                <input type="email" class="form-control" name="correo" id="correo" onblur="validarCorreo()">
+                <div id="msjCorreo" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Contrasena</label>
+                <input type="password" class="form-control" name="clave1" id="clave1" onblur="validarClave1()">
+                <div id="msjClave1" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Repetir Clave</label>
+                <input type="password" class="form-control" name="clave2" id="clave2" onblur="validarClave2()">
+                <div id="msjClave2" class="error"></div>
+            </div>
+            <div class="form-group" style="margin-top: 20px;">
+                <button id="btnEnviar" class="btn btn-success" disabled>Enviar</button>
+                <a id="btnLimpiar" class="btn btn-warning" onclick="limpiar()" href="#">Limpiar</a>
+            </div>
+        </form>
+    </div>
+    <script src="ejemplo09.js"></script>
+</body>
+
+</html>

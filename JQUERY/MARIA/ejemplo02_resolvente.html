@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejemplo 01</title>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo 02 Resolvente</h1>
+    <div class="form-group">
+        <label for="a">Ingrese valor de a</label>
+        <input type="number" step="0.000001" name="a" id="a" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="b">Ingrese valor de b</label>
+        <input type="number" step="0.000001" name="b" id="b" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="c">Ingrese valor de c</label>
+        <input type="number" step="0.000001" name="c" id="c" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <button id="btnCalcular" class="btn btn-success">Calcular</button>
+        <button id="btnLimpiar" class="btn btn-warning">Limpiar</button>
+    </div>
+    <div id="salida"></div>
+</div>
+    <script>
+    // Declaración de librerías
+
+    // Declaración de funciones
+    $('#btnCalcular').click(function () {
+
+        a = parseFloat($('#a').val());
+        b = parseFloat($('#b').val());
+        c = parseFloat($('#c').val());
+        if (!expRegNum.test(a) || !expRegNum.test(b) || !expRegNum.test(c) ){
+            $('#salida').removeAttr('class');
+            $('#salida').addClass('alert alert-primary');
+            mensaje = '<strong>Alerta</strong> Los valores a ingresar debe ser numéricos.';
+        }else{
+            if (a == 0) {
+               $('#salida').removeAttr('class');
+               $('#salida').addClass('alert alert-danger');
+               mensaje = '<strong>Error</strong> El valor de "a" debe ser diferente de cero.';
+            } else {
+               subRadical = Math.pow(b, 2) - 4 * a * c;
+               if (subRadical < 0) {
+                $('#salida').removeAttr('class');
+                $('#salida').addClass('alert alert-warning');
+                mensaje = '<strong>Atención</strong> Expresión sub radical no puede ser negativa.';
+               } else {
+                x1 = (-b + Math.sqrt(subRadical)) / (2 * a);
+                x2 = (-b - Math.sqrt(subRadical)) / (2 * a);
+                $('#salida').removeAttr('class');
+                $('#salida').addClass('alert alert-success');
+                mensaje = `<strong>Resultado</strong> x1 = ${x1}, x2= ${x2}`;
+               }
+            }
+        }
+        $('#salida').html(mensaje);
+      })
+
+    $('#btnLimpiar').click(function(){
+        $('#a').val('');
+        $('#b').val('');
+        $('#c').val('');
+        $('#salida').removeAttr('class');
+        $('#salida').html('');
+    })
+
+    // Declaración de variables
+    let a, b, c, x1, x2, subRadical, mensaje; 
+    const expRegNum = /^\d{1,7}(\.\d{1,6})?$/;
+
+    // Cuerpo principal del programa
+
+    </script>
+</body>
+</html>

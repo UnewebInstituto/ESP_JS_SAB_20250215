@@ -1,0 +1,119 @@
+https://developer.mozilla.org/es/docs/conflicting/Web/API/Window/load_event
+
+https://getbootstrap.com/
+
+https://tailwindcss.com/
+
+https://www.w3schools.com/bootstrap/bootstrap_ver.asp
+
+Minificación de archivos
+
+https://www.npmjs.com/package/minify
+
+https://www.w3schools.com/bootstrap/bootstrap_forms.asp
+
+IA
+
+https://you.com/
+
+#### Expresión Regular para Validar Letras y Espacios en Blanco
+
+Si deseas validar una cadena que contenga **sólo letras mayúsculas, minúsculas y espacios en blanco**, puedes usar la siguiente expresión regular:
+
+```
+^[a-zA-Z\s]+$
+```
+
+#### Explicación:
+1. **`^`**: Indica el inicio de la cadena.
+2. **`[a-zA-Z\s]`**: Define un conjunto de caracteres permitidos:
+   - `a-z`: Letras minúsculas.
+   - `A-Z`: Letras mayúsculas.
+   - `\s`: Espacios en blanco.
+3. **`+`**: Indica que debe haber al menos un carácter del conjunto definido (puede repetirse).
+4. **`$`**: Indica el final de la cadena.
+
+#### Ejemplo de Uso:
+- **Cadena válida**: `"Hola Mundo"`
+- **Cadena inválida**: `"Hola123"` (contiene números) o `"Hola_Mundo"` (contiene un guion bajo).
+
+Esta expresión regular es ampliamente utilizada y recomendada para este propósito.
+
+#### Expresión Regular para Validar Correos Electrónicos
+
+Una expresión regular básica y funcional para validar correos electrónicos es la siguiente:
+
+```
+^[^@]+@[^@]+\.[a-zA-Z]{2,}$
+```
+
+#### Explicación:
+1. **`^`**: Indica el inicio de la cadena.
+2. **`[^@]+`**: Acepta uno o más caracteres que no sean `@` (el nombre del usuario antes del símbolo `@`).
+3. **`@`**: Obliga a que exista un símbolo `@`.
+4. **`[^@]+`**: Acepta uno o más caracteres que no sean `@` (el dominio después del símbolo `@`).
+5. **`\.`**: Obliga a que exista un punto (`.`) después del dominio.
+6. **`[a-zA-Z]{2,}`**: Acepta una extensión de dominio con al menos 2 caracteres alfabéticos (como `.com`, `.org`, `.es`).
+7. **`$`**: Indica el final de la cadena.
+
+#### Ejemplo de Uso:
+- **Válidos**:
+  - `usuario@dominio.com`
+  - `nombre.apellido@empresa.org`
+  - `correo123@sub.dominio.net`
+- **Inválidos**:
+  - `usuario@@dominio.com` (doble `@`)
+  - `usuario@dominio` (falta la extensión)
+  - `@dominio.com` (falta el nombre de usuario)
+
+#### Nota:
+Esta expresión regular es adecuada para validaciones básicas de formato, pero no garantiza que el correo electrónico exista o sea funcional. Para validaciones más avanzadas, se recomienda usar servicios de verificación de correos electrónicos o bibliotecas específicas.
+
+
+#### Expresión Regular para Validar el Criterio Solicitado
+
+Aquí tienes una expresión regular que cumple con los requisitos:
+
+```
+^[A-Z][a-zA-Z0-9!"#$%&/()=?¿]{5,13}[0-9][!"#$%&/()=?¿]$
+```
+
+#### Explicación:
+1. **`^`**: Indica el inicio de la cadena.
+2. **`[A-Z]`**: Obliga a que el primer carácter sea una letra mayúscula.
+3. **`[a-zA-Z0-9!"#$%&/()=?¿]{5,13}`**: Permite entre 5 y 13 caracteres adicionales que pueden ser letras (mayúsculas o minúsculas), números o caracteres especiales permitidos. Esto asegura que la longitud total sea de entre 7 y 15 caracteres.
+4. **`[0-9]`**: Obliga a que haya al menos un número en la cadena.
+5. **`[!"#$%&/()=?¿]`**: Obliga a que haya al menos un carácter especial de los especificados.
+6. **`$`**: Indica el final de la cadena.
+
+#### Ejemplo de Uso:
+- **Válidos**:
+  - `Aabcde1!`
+  - `Z12345$%`
+  - `Myp@ssw0rd¿`
+- **Inválidos**:
+  - `abcde1!` (no inicia con mayúscula).
+  - `Aabcde!` (no contiene un número).
+  - `Aabcde1` (no contiene un carácter especial permitido).
+  - `A1!` (menos de 7 caracteres).
+  - `Aabcde123456789!` (más de 15 caracteres).
+
+#### Nota:
+Esta expresión regular asegura que se cumplan todos los criterios mencionados. Sin embargo, si necesitas adaptarla a un lenguaje de programación específico, asegúrate de escapar correctamente los caracteres especiales según las reglas del lenguaje.
+
+
+Tarea:
+
+Declarar y validar expresión regular para correo electrónico.
+^[^@]+@[^@]+\.[a-zA-Z]{2,}$
+
+Declarar y validar expresión regular para clave, con el siguiente criterio:
+-mínimo 7 caracteres
+-máximo 15 caractares
+-Debe iniciar siempre con una letra mayúscula
+-Debe contener al menos un caracteres numérico
+-Debe contener un caracter especial de los siguientes !"#$%&/()=?¿
+
+^[A-Z][a-zA-Z0-9!"#$%&/()=?¿]{5,13}[0-9][!"#$%&/()=?¿]$
+
+

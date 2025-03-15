@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejemplo01</h1>
+        <p id="t1" class="cp"><b>Primero</b> Lorem ipsum, <u>dolor</u> sit amet consectetur adipisicing elit. Magni pariatur vero <s>voluptatum</s> nam id obcaecati dolor earum, facilis doloribus eligendi quam mollitia hic provident vitae adipisci modi sint, error fugit, dicta voluptas. Nulla iusto, debitis nam quam officia cum vero aspernatur eius minus placeat ipsam praesentium at est assumenda reiciendis!</p>
+        <p id="t2" class="cp">Segundo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus quod, quasi ab saepe nostrum commodi, natus repellendus perspiciatis sed libero accusamus rem incidunt tempora alias atque quas numquam! Doloremque esse modi aliquam unde at quasi eum veniam numquam tempora eius. Dolore reprehenderit error, perspiciatis quaerat sapiente dolorum recusandae nobis alias debitis excepturi eaque totam natus veritatis! Id eius voluptates nisi expedita, omnis quisquam autem harum, mollitia, sed maxime quibusdam velit.</p>
+        <p id="t3" class="cp">Tercero Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ea, voluptates pariatur provident consequatur voluptatem. Molestiae, quam. Autem fugit veritatis cum voluptatum animi molestiae placeat, omnis enim quisquam culpa, optio iste, vel illum sapiente blanditiis ipsa ratione nesciunt. Quisquam, dicta!</p>
+        <input type="text" name="curso" value="JQuery">
+        <hr>
+        <button id="btnObtenerHTML" class="btn btn-primary">Obtener HTML</button>
+        <button id="btnObtenerText" class="btn btn-warning">Obtener TEXT</button>
+        <button id="btnObtenerVal" class="btn btn-success">Obtener Val</button>
+        <hr>
+        <div id="salida"></div>
+        <hr>
+    </div>
+    <script>
+        $('#btnObtenerHTML').click(function(){
+            //$('#salida').html($('#t1').html());
+            let contenido = $('#t1').html();
+            $('#salida').html(contenido);
+        });
+
+        $('#btnObtenerText').click(function(){
+            //$('#salida').html($('#t1').html());
+            let contenido = $('#t1').html();
+            $('#salida').text(contenido);
+        });
+
+        $('#btnObtenerVal').click(function(){
+            //$('#salida').html($('#t1').html());
+            let contenido = $('input[name=curso]').val();
+            $('#salida').text(contenido);
+        });
+    </script>
+</body>
+</html>

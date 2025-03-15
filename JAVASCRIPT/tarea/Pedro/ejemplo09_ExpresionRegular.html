@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo 09 Expresión Regular</title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Expresiones Regulares</h1>
+        <form action="">
+            <div class="form-group">
+                <label for="">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" onblur="validarNombre()">
+                <div id="msjNombre"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Apellido:</label>
+                <input type="text" class="form-control" name="c" id="apellido" onblur="validarApellido()">
+                <div id="msjApellido"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Correo electrónico:</label>
+                <input type="text" class="form-control" name="email" id="email" onblur="validarEmail()">
+                <div id="msjCorreo"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Clave</label>
+                <input type="password" class="form-control" name="clave" id="clave" onblur="validarClave1()">
+                <div id="msjClave1"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Repetir Clave</label>
+                <input type="password" class="form-control" name="clave2" id="clave2" onblur="validarClave2()">
+                <div id="msjClave2"></div>
+            </div>
+            <div class="form-group" style="margin-top:20px;"></div>
+            <button id="btnEnviar" class="btn btn-success" disabled onclick="Enviar()">Enviar</button>
+            <button id="btnLimpiar" class="btn btn-warning" onclick="Limpiar()">Limpiar</button>
+    </div>
+    </form>
+
+    </div>
+    <script src="ejemplo09.js"></script>
+</body>
+
+</html>

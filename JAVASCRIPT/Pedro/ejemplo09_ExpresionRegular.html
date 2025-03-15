@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo 09 Expresión Regular</title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Expresiones Regulares</h1>
+        <form action="">
+            <div class="form-group">
+                <label for="">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" onblur="validarNombre()">
+                <div id="msjNombre"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Apellido:</label>
+                <input type="text" class="form-control" name="c" id="apellido" onblur="validarApellido()">
+                <div id="msjApellido"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Correo electrónico:</label>
+                <input type="text" class="form-control" name="email" id="email" onblur="validarEmail()">
+                <div id="msjCorreo"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Clave</label>
+                <input type="text" class="form-control" name="clave" id="clave" onblur="validarClave1()">
+                <div id="msjClave1"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Repetir Clave</label>
+                <input type="text" class="form-control" name="clave2" id="clave2" onblur="validarClave1()">
+                <div id="msjClave2"></div>
+            </div>
+            <div class="form-group" style="margin-top:20px;"></div>
+                <button id="btnEnviar" class="btn btn-success" disabled>Enviar</button>
+                <button id="btnLimpiar" class="btn btn-warning">Limpiar</button>
+            </div>
+        </form>
+
+    </div>
+    <script>
+        function validarNombre(){
+            let expRegNombre = /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/;
+            let nombre = document.getElementById('nombre').value;
+            let msjNombre = document.getElementById('msjNombre');
+            if (expRegNombre.test(nombre)){
+                ctrlNombre = true;
+                msjNombre.innerHTML = '';
+            }else{
+                ctrlNombre = false;
+                msjNombre.style.fontSize = '14px';
+                msjNombre.style.color = 'red';
+                msjNombre.innerHTML = "ERROR: en el nombre sólo se admiten letras y espacios en blanco";
+            }
+            validarControles();
+        }
+
+        function validarApellido(){
+            let expRegApellido = /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/;
+            let apellido = document.getElementById('apellido').value;
+            let msjApellido = document.getElementById('msjApellido');
+            if (expRegApellido.test(apellido)){
+                ctrlApellido = true;
+                msjApellido.innerHTML = '';
+            }else{
+                ctrlApellido = false;
+                msjApellido.style.fontSize = '14px';
+                msjApellido.style.color = 'red';
+                msjApellido.innerHTML = "ERROR: en el apellido sólo se admiten letras y espacios en blanco";
+            }
+            validarControles();
+        }
+
+        function validarEmail(){
+            let expRegCorreo = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+            let correo = document.getElementById('email').value;
+            let msjCorreo = document.getElementById('msjCorreo');
+            if (expRegCorreo.test(correo)){
+                ctrlCorreo = true;
+                msjCorreo.innerHTML = '';
+            }else{
+                ctrlCorreo = false;
+                msjCorreo.style.fontSize = '14px';
+                msjCorreo.style.color = 'red';
+                msjCorreo.innerHTML = "ERROR: El correo no tiene el formato";
+            }
+            validarControles();
+        }
+
+        //Declaraión de Funciones
+        function validarControles(){
+            if (ctrlNombre == true && ctrlApellido == true && ctrlCorreo == true && ctrlClave1 == true && ctrClave2 == true){
+                document.getElementById('btnEnviar').disabled = false;
+            }else{
+                document.getElementById('btnEnviar').disabled = true;
+            }
+        }
+        //Declarción de Variables
+        let ctrlNombre = false;
+        let ctrlApellido = false;
+        let ctrlCorreo = false;
+        let ctrlClave1 = false;
+        let ctrClave2 = false;
+
+    </script>
+</body>
+</html>

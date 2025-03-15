@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../jquery-3.7.1.js"></script>
+    <style>
+        #titulo, #contenido{
+            width: 50%;
+            margin-left: 25%;
+            background-color: lightskyblue;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+
+        #contenido{
+            display: none;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejemplo01</h1>
+        <p id="t1" class="cp"> <b> Primero </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, corrupti totam quam quia quae
+           doloribus incidunt, fugit veniam <u>sapiente</u> aperiam neque eos? Fugiat numquam maxime beatae? Consectetur neque
+           eos officiis voluptatibus vel <s>porro</s> totam fugiat, itaque error quos soluta illo, ut consequatur quidem delectus
+           laboriosam est doloremque? Reiciendis, impedit nesciunt.
+        </p>
+        <p id="t2" class="cp"> Segundo Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error consequuntur excepturi a
+           amet quia distinctio, est voluptas architecto veritatis odit omnis et placeat neque dolorem eveniet corporis
+           eius dolores ipsam saepe maxime dolorum pariatur quis. Consequatur et expedita praesentium esse veritatis dolor
+           deleniti natus suscipit asperiores, rem, mollitia est voluptates temporibus, velit perferendis nihil voluptatum
+           quae vel cumque hic. In commodi nihil recusandae laboriosam dolor corrupti ea harum numquam dolore
+        </p>
+
+        <p id="t3" class="cp"> Tercero Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore temporibus, eligendi,
+           repellat cum deserunt et quae distinctio rem velit pariatur hic? Doloribus sunt, nemo alias at quo pariatur
+           ducimus et iusto nostrum ipsam amet molestiae? Id labore ab aspernatur officia.
+           <img src="../img/3.jfif"style="width: 100px; height: 100px;">
+        </p>
+        <hr>
+        <button class="btn btn-primary" id="btnOcultarInmediato"> Ocultar/Mostra de Inmediato</button>
+        <button class="btn btn-warning" id="btnOcultarDespacio"> Ocultar/Mostrar Despacio </button>
+        <button class="btn btn-success" id="btnOcultarTemporizado"> Ocultar/Mostrar Temporizado</button>
+        <hr>
+        <button class="btn btn-primary" id="btnAlternarInmediato">Alternar/Mostra de Inmediato</button>
+        <button class="btn btn-warning" id="btnAlternarDespacio"> Alternar/Mostrar Despacio </button>
+        <button class="btn btn-success" id="btnOAlternarTemporizado"> Alternar/Mostrar Temporizado</button>
+        
+
+
+        <hr>
+        <div id="titulo"> Por favor hacer click para mostrar el contenido</div>
+        <div id="contenido">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem hic voluptas architecto incidunt possimus, ut maxime deserunt nisi provident consectetur, voluptates earum excepturi? Doloremque quasi reiciendis cumque vel corrupti atque cum dolore. Eum ducimus eaque id doloremque cum, neque molestias quos, et ab consequuntur sequi deleniti cumque, tempora soluta odio debitis non alias fugit voluptate eius nam maiores corporis? Nihil harum facere, accusantium sapiente aperiam tempora dolores dolorum odio impedit, rem doloribus provident quos ut? Possimus labore perspiciatis placeat sed corporis eaque non distinctio accusamus aut sint autem optio quos rerum blanditiis nam corrupti deserunt, error cupiditate dicta impedit quis deleniti. Hic corporis quas similique a magni cupiditate tempora quod, et sunt aliquam eveniet veniam nobis quia vitae ea commodi! Ipsa quod vitae adipisci molestias commodi? Odio numquam nihil officia sequi minus nemo, autem molestias repellendus dicta explicabo, libero laborum eos ex voluptatum natus aut minima sit doloribus esse! Asperiores, incidunt eaque! Ipsa est consequatur, numquam dolor dicta magnam quidem odit nulla aliquid accusantium quas dolorem? Non tempora modi officia doloribus qui temporibus natus laudantium nobis molestiae rem obcaecati, saepe amet et, neque itaque quas eum impedit optio. Commodi similique quos dolor fugit non. Enim nesciunt nam accusantium. Rem, hic?</div>
+     </div>
+     <script>
+        $('#btnOcultarInmediato').click(function () {
+            if (c1) {
+                $('#t1').hide();
+                c1 = false;
+            }else{
+                $('#t1').show();
+                c1 = true;
+            }
+        });
+
+        $('#btnOcultarDespacio').click(function () {
+            if (c2) {
+                $('#t2').hide('sleep');
+                c2 = false;
+            }else{
+                $('#t2').show('sleep');
+                c2 = true;
+            }
+        })
+
+        $('#btnOcultarTemporizado').click(function () {
+            if (c3) {
+                $('#t3').hide(3000);
+                c3 = false;
+            }else{
+                $('#t3').show(3000);
+                c3 = true;
+            }
+
+        })
+
+        $('#btnAlternarInmediato').click(function () {
+                $('#t1').toggle();
+        });
+
+        $('#btnAlternarDespacio').click(function () {
+                $('#t2').toggle('sleep');
+        })
+
+        $('#btnOAlternarTemporizado').click(function () {
+                $('#t3').toggle(3000);
+        })
+
+        $('#titulo').click(function(){
+            if (c4) {
+                //$('#contenido').slideDown();
+                //$('#contenido').slideDown('sleep');
+                $('#contenido').slideDown(3000);
+                $('#titulo').html('Por favor hacer click para ocultar el contenido')
+                c4 = false;              
+            }else{
+                //$('#contenido').slideUp();
+                //$('#contenido').slideUp('sleep');
+                $('#contenido').slideUp(3000);
+                $('#titulo').html('Por favor hacer click para mostrar el contenido')
+
+                c4 = true;
+            }
+        })
+
+        // Declaración de Variables
+        let c1 = true; 
+        let c2 = true;
+        let c3 = true;
+        let c4 = true;
+     </script>
+</body>
+</html>

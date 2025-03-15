@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejemplo 01</title>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Ejemplo 01 JQuery</h1>
+<div>
+    <p id="p1" class="cp"><b>PRIMERO</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur recusandae <u>perferendis</u> sapiente excepturi debitis dignissimos ab consectetur omnis consequuntur,<s> vitae </s> asperiores rem, delectus natus? Porro quos officia exercitationem a minus.</p>
+
+    <p id="p2" class="cp">SEGUNDO Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat consequatur ipsa minima quidem expedita tenetur quam enim nostrum? Optio, veritatis velit harum itaque dolor sunt distinctio expedita culpa officia tempore excepturi numquam facere animi porro in quas, quis consequuntur amet hic? Aliquam aspernatur voluptate tenetur, molestias exercitationem dolor quod earum?</p>
+
+    <p id="p3" class="cp">TERCERO Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum sequi nobis autem obcaecati hic ipsam adipisci temporibus similique dignissimos! Quos!.</p>
+    <input type="text" name="curso" value="jQuery">
+    <hr>
+    <button class="btn btn-primary" id="btnObtenerHTML">Obtener HTML</button>
+    <button class="btn btn-warning" id="btnObtenerTEXT">Obtener TEXT</button>
+    <button class="btn btn-success" id="btnObtenerVAL">Obtener VAL</button>
+    <hr>
+    <div id="salida"></div>
+    <hr>
+</div>
+    <script>
+        /* $('#btnObtenerHTML').click(function(){        -------ejemplo opcional-----
+            $('#salida').html($('#t1').html());
+        })*/ 
+        $('#btnObtenerHTML').click(function () {     
+         let contenido = $('#p1').html();     //buscador  $('___').html();
+         $('#salida').html(contenido);
+        });
+        $('#btnObtenerTEXT').click(function () {
+         let contenido = $('#p1').html();         //buscador  $('___').html();
+         $('#salida').text(contenido);
+        });
+        $('#btnObtenerVAL').click(function () {
+         let contenido = $('input[name=curso]').val();  //buscador  $('___').val();
+         $('#salida').html(contenido);
+        })
+    </script>
+
+</body>
+</html>

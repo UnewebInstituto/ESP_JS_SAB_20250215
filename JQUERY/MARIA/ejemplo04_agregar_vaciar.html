@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejemplo 04</title>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejemplo 04 Agregar-Vaciar</h1>
+        <div class="row" >
+            <div class="form-group col-md-6">
+                <label for="">Nombre  del estudiante</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre y apellido del estudiante" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="">edad  del estudiante</label>
+                <input type="number" name="edad" id="edad" placeholder="Ingrese la edad del estudiante" class="form-control">
+            </div>
+        </div>
+            <div class="form-group">
+            <button  id="btnAnadir" class="btn btn-primary">Añadir</button>
+            <button id="btnLimpiar" class="btn btn-warning">Limpiar</button>
+            <button id="btnImprimir" class="btn btn-success">Imprimir</button>
+        </div>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        //funciones
+        $("button[class= 'btn btn-success']").click(function() {
+            window.print();
+        });
+
+        $("button[class='btn btn-warning']").click(function(){
+            $("#resultado").hide(1500);
+
+            //Se reinician los arreglos
+            nombres = new Array();
+            edades = new Array();
+            //Se reinicia la suma
+            suma = 0;
+        });
+
+      $("button[class='btn btn-primary']").click(function(){
+            $('#resultado').css('display', 'block')
+            nombre = $('#nombre').val();
+            edad = $('#edad').val();
+
+        
+        suma += parseInt(edad)         //se añade a los arreglos
+            nombres.push(nombre);
+            edades.push(edad);
+            contenido = '';
+            contenido += tabla_inicio;
+            contenido += encabezado
+            for(let i = 0; i < nombres.length; i++){
+                contenido += fila_inicio;
+                contenido += celda_inicio;
+                contenido += nombres[i];
+                contenido += celda_final;
+                contenido += celda_inicio;
+                contenido += edades[i];
+                contenido += celda_final;
+                contenido += fila_final;
+        }
+        contenido += fila_inicio;
+            contenido += celda_inicio;
+            contenido += 'PROMDEDIO';
+            contenido += celda_final;
+            contenido += celda_inicio;
+            contenido += (suma / nombres.length).toFixed(2);
+            contenido += celda_final;
+            contenido += tabla_final;
+
+            $('#resultado').empty();
+            $('#resultado').append(contenido);
+
+            $('#nombre').val('');
+            $('#edad').val('');
+
+        });
+
+        //declaracion de variables
+        let nombres = new Array();
+        let edades = new Array();
+        let nombre;
+        let edad;
+        let suma = 0;
+        let contenido;
+        let tabla_inicio = "<table class= 'table table-bordered table-striped table-hover'>";
+        let encabezado = "<tr><th>NOMBRE</th><th>EDAD</th></tr>";
+        let fila_inicio = "<tr>";
+        let celda_inicio = "<td>";
+        let celda_final = "</td>";
+        let fila_final = "</tr>"
+        let tabla_final = "</table>";
+
+
+    </script>
+</body>
+</html>

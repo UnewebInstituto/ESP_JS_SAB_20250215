@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ejemplo05 - Api de Geolocalizacion</h1>
+    <button onclick="obtenerUbicacion()">Obtener ubicacion</button>
+    <button disabled onclick="verMapa()">Ver en un mapa</button>
+    <h2 style="display: none;"></h2>
+    <div id="salida"></div>
+    <script>
+        //Declaracion de funciones
+        const obtenerUbicacion  = () => {
+            if(navigator.geolocation){
+                //Si el navegador web soporta geolocalizacion será verdadero
+                salida.innerHTML = 'Navegador Web Soporta Geolocalizacion';
+                navigator.geolocation.getCurrentPosition(accedeUbicacion, noAccedeUbicacion);
+            }
+            else {
+                salida.innerHTML = 'Navegador Web Soporta Geolocalizacion';
+
+            }
+        }
+
+        // ASCII = ALT + 096
+        function accedeUbicacion(posicion) {
+            console.log(posicion);
+            latitud = posicion.coords.latitude;
+            longitud = posicion.coords.longitude;
+            let mostrar = document.getElementsByTagName('h2')[0];
+            mostrar.innerHTML = 'Esta es mi ubicacion';
+            mostrar.style.display = 'block';
+
+            //Habilitar botón
+            let boton = document.getElementsByTagName('button')[1];
+            boton.disabled = false;
+
+            mensaje = `<b>Latitud:</b> ${latitud} <br><b>Longitud:</b> ${longitud}`;
+            salida.innerHTML = mensaje;
+        }
+
+        function noAccedeUbicacion(error){
+            console.log(error);
+            let mostrar = document.getElementsByTagName('h2')[0];
+            mostrar.style.display = 'block';
+            mostrar.innerHTML = 'Se ha producido un Error';
+            switch (error.code) {
+                case 1:
+                    mensaje="<b>ERROR:</b> Acceso negado por el usuario";
+                    break;
+                case 2:
+                    mensaje="<b>ERROR:</b> Posición no disponible";
+                    break;
+                case 3:
+                    mensaje="<b>ERROR:</b> Se exedio en el tiempo de espera";
+                    break;
+                default:
+                    mensaje="<b>ERROR:</b> Información no disponible, intente más tarde";
+                    break;
+            }
+
+            salida.innerHTML = mensaje;
+        }
+
+        function verMapa() {
+            urlApi = 'https://www.openstreetmap.org/#map=17/' + latitud + '/' + longitud;
+            window.open(urlApi);
+        }
+
+        //Declaracion de variables
+        var salida, latitud, longitud, mensaje, urlApi;
+
+        //Cuerpo principal del programa
+        salida = document.getElementById('salida');
+        latitud = '';
+        longitud = '';
+        mensaje = '';
+
+    </script>
+</body>
+</html>

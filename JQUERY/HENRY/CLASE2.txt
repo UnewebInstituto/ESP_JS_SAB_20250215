@@ -1,0 +1,184 @@
+$('#principal').before('<p>Parrafo al principio</p>')
+ce.fn.init {0: div#principal, length: 1}
+$('#principal').after('<p>Parrafo al <b>final</b></p>')
+ce.fn.init {0: div#principal, length: 1}
+$('#principal').prepend('<p>Contenido al principio</p>')
+ce.fn.init {0: div#principal, length: 1}
+$('#principal').append('<p>Contenido al final</p>')
+ce.fn.init {0: div#principal, length: 1}
+let parrafos = document.getElementsByTagName('p')
+undefined
+parrafos[1].id = 'principio'
+'principio'
+$('#principio')
+ce.fn.init {0: p#principio, length: 1}
+$('#principio').html()
+'Contenido al principio'
+$('#principio').empty()
+ce.fn.init {0: p#principio, length: 1}
+$('#principio').empty()
+ce.fn.init {0: p#principio, length: 1}
+$('#principio').html()
+''
+$('#principio').remove()
+ce.fn.init {0: p#principio, length: 1}
+let parrafos1 = $('p')
+undefined
+parrafos1
+ce.fn.init {0: p, 1: p, 2: p, length: 3, prevObject: ce.fn.init}
+parrafos1[0]
+<p>​Parrafo al principio​</p>​
+parrafos1[0].style
+parrafos1[0].id
+''
+parrafos1[0].id = 'final'
+'final'
+$('#final').attr('style','background-color:blue;color:white;')
+ce.fn.init {0: p#final, length: 1}
+parrafos[0].style.backgroundColor='purple'
+'purple'
+parrafos[0].style.color='yellow'
+'yellow'
+$('#final').css('background-color')
+'rgb(128, 0, 128)'
+$('#final').css('color')
+'rgb(255, 255, 0)'
+$('#final').css('background-color','black')
+ce.fn.init {0: p#final, length: 1}
+$('#final').css({'background-color':'green','color':'#CCC'})
+ce.fn.init {0: p#final, length: 1}
+
+- Desarrollar una interface,donde se solicita 
+nombre y edad.
+- En la medida que se vaya solicitando, se añade
+en una tabla, con el respectivo promedio de edades.
+- Debe contener un botón para imprimir pantalla y 
+borrar tabla.
+
+
+#### Método `add()` de jQuery
+
+El método `add()` en jQuery se utiliza para **agregar elementos a un grupo existente de elementos seleccionados**. Esto permite combinar múltiples conjuntos de elementos en una sola colección, lo que facilita la manipulación de ellos como un grupo.
+
+##### Sintaxis
+```javascript
+$(selector).add(selector2)
+```
+- `selector`: El primer conjunto de elementos que se seleccionan.
+- `selector2`: El segundo conjunto de elementos que se desea agregar al primer conjunto.
+
+##### Ejemplo
+Aquí tienes un ejemplo práctico que ilustra cómo usar el método `add()`:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de jQuery add()</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Seleccionamos todos los párrafos y luego agregamos los elementos con clase 'extra'
+            var todosLosElementos = $("p").add(".extra");
+            todosLosElementos.css("color", "blue"); // Cambiamos el color de texto a azul
+        });
+    </script>
+</head>
+<body>
+    <p>Párrafo 1</p>
+    <p>Párrafo 2</p>
+    <div class="extra">Elemento extra 1</div>
+    <div class="extra">Elemento extra 2</div>
+</body>
+</html>
+```
+
+En este ejemplo, se seleccionan todos los elementos `<p>` y se agregan los elementos con la clase `extra`. Luego, se cambia el color del texto de todos los elementos seleccionados a azul. Esto demuestra cómo el método `add()` permite combinar diferentes selecciones de elementos para aplicarles estilos o manipulaciones de manera conjunta.
+
+
+
+#### Método `addBack()` de jQuery
+
+El método `addBack()` en jQuery se utiliza para **agregar el conjunto anterior de elementos en la pila de selección al conjunto actual**. Esto es útil cuando se han realizado varias selecciones o filtrados y se desea volver a incluir elementos que fueron parte de una selección anterior.
+
+##### Sintaxis
+```javascript
+$(selector).addBack(selector)
+```
+- `selector`: (opcional) Un selector que se puede usar para filtrar los elementos que se agregarán de nuevo.
+
+##### Ejemplo
+Aquí tienes un ejemplo que muestra cómo usar el método `addBack()`:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de jQuery addBack()</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Seleccionamos todos los párrafos y luego filtramos solo los que tienen la clase 'highlight'
+            var elementosFiltrados = $("p").filter(".highlight").addBack();
+            elementosFiltrados.css("color", "red"); // Cambiamos el color de texto a rojo
+        });
+    </script>
+</head>
+<body>
+    <p>Párrafo 1</p>
+    <p class="highlight">Párrafo 2 (destacado)</p>
+    <p>Párrafo 3</p>
+    <p class="highlight">Párrafo 4 (destacado)</p>
+</body>
+</html>
+```
+
+En este ejemplo, se seleccionan todos los elementos `<p>` y luego se filtran solo aquellos que tienen la clase `highlight`. Al usar `addBack()`, se vuelven a incluir todos los párrafos originales en la selección, y se cambia el color del texto de todos ellos a rojo. Esto demuestra cómo `addBack()` permite recuperar elementos previamente seleccionados en la cadena de selección.
+
+
+
+icrosoft Windows [Versión 10.0.19045.4170]
+(c) Microsoft Corporation. Todos los derechos reservad
+
+C:\ESP_JS_SAB_2025215>cd jquery
+
+C:\ESP_JS_SAB_2025215\JQUERY>cd henry
+
+C:\ESP_JS_SAB_2025215\JQUERY\HENRY>cd ejemplo05_ajax
+
+C:\ESP_JS_SAB_2025215\JQUERY\HENRY\ejemplo05_ajax>npm 
+Wrote to C:\ESP_JS_SAB_2025215\JQUERY\HENRY\ejemplo05_.json:
+
+{
+  "name": "ejemplo05_ajax",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit
+  },
+  },
+  },
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+
+
+C:\ESP_JS_SAB_2025215\JQUERY\HENRY\ejemplo05_ajax>npm install express
+
+added 69 packages, and audited 70 packages in 10s
+added 69 packages, and audited 70 packages in 10s
+
+added 69 packages, and audited 70 packages in 10s
+
+14 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\ESP_JS_SAB_2025215\JQUERY\HENRY\ejemplo05_ajax>

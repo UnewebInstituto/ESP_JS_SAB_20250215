@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="./css/ejemplo02.css">
+</head>
+
+<body>
+   <div>
+      <h1 class="titulos">Ejemplo02</h1>
+      <h2 class="titulos">Estructuras de control condicional</h2>
+      <h2 class="titulos">Caso Resolvente - Ecuación de 2do. Grado</h2>
+   </div>
+   <div id="entrada">
+      <h3>Ingrese los siguiente valores:</h3>
+      <table>
+         <tr>
+            <td>a:</td>
+            <td>
+               <input type="number" name="a" id="a" step="0.001" value="0">
+            </td>
+         </tr>
+         <tr>
+            <td>b:</td>
+            <td>
+               <input type="number" name="b" id="b" step="0.001" value="0">
+            </td>
+         </tr>
+         <tr>
+            <td>c:</td>
+            <td>
+               <input type="number" name="c" id="c" step="0.001" value="0">
+            </td>
+         </tr>
+      </table>
+      <button
+         onclick="calcular(document.getElementById('a').value, document.getElementById('b').value, document.getElementById('c').value)">CALCULAR</button>
+      <button onclick="limpiar()">LIMPIAR</button>
+   </div>
+   <div id="salida">
+   </div>
+   <script src="./js/ejemplo02.js"></script>
+</body>
+
+</html>

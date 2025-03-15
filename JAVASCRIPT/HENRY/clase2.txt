@@ -1,0 +1,6 @@
+https://developer.mozilla.org/es/docs/conflicting/Web/API
+
+
+https://htmlcheatsheet.com/js/
+
+https://www.w3schools.com/colors/colors_picker.asp

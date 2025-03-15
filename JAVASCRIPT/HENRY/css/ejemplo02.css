@@ -1,0 +1,25 @@
+      .titulos {
+         font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .mensaje {
+         padding: 10px;
+         text-align: center;
+         border-style: solid;
+         border-width: 2px;
+         border-color: black;
+         color: black;
+         width: 50%;
+      }
+
+      .error {
+         background-color: lightpink;
+      }
+
+      .alerta {
+         background-color: lightsalmon;
+      }
+
+      .exito {
+         background-color: lightgreen;
+      }

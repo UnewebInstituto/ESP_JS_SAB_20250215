@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <h1>Ejemplo03</h1>
+   <h2>Estructuras de control repetitivas</h2>
+   <h2>Caso Serie Fibonacci</h2>
+   <div id="entrada">
+      <label for="">Ingrese los valores requeridos:</label>
+      <br>
+      <label for="">Primer número de la Serie</label>
+      <input type="number" name="n1" id="n1" step="0.001">
+      <br>
+      <label for="">Segundo número de la Serie</label>
+      <input type="number" name="n2" id="n2" step="0.001">
+      <br>
+      <label for="">Cantidad de números en la Serie</label>
+      <input type="number" name="n" id="n">
+      <br>
+      <button
+         onclick="generar(document.getElementById('n1').value,document.getElementById('n2').value,document.getElementById('n').value,)">GENERAR
+         SERIE</button>
+      <button>LIMPIAR</button>
+   </div>
+   <div id="salida"></div>
+   <script>
+      const generar = (arg_n1, arg_n2, arg_n) => {
+         n1 = parseFloat(arg_n1);
+         n2 = parseFloat(arg_n2);
+         n = parseInt(arg_n);
+         let suma = 0;
+         let i = 2;
+         let salida = '';
+         salida = salida + n1 + "<br>";
+         salida = salida + n2 + "<br>";
+         while (i < n) {
+            suma = n1 + n2
+            salida += suma + "<br>";
+            n1 = n2;
+            n2 = suma;
+            i = i + 1; // i ++, i += 1
+         }
+         objetoSalida.innerHTML = salida;
+      }
+
+      const limpiar = () => {
+      }
+
+      var objetoSalida = document.getElementById('salida');
+   </script>
+</body>
+
+</html>

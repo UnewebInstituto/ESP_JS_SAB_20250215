@@ -1,0 +1,228 @@
+PASOS A SEGUIR PARA LA INSTALACIÓN:
+
+mkdir mi-proyecto
+cd mi-proyecto
+npm init -y
+npm install express
+
+CONTENIDO index.html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo AJAX con jQuery</title>
+    <script src="./jquery/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Enviar Datos a Node.js</h1>
+    <form id="myForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#myForm').on('submit', function(event) {
+                event.preventDefault(); // Evita el envío normal del formulario
+
+                // Captura los datos del formulario
+                var nombre = $('#nombre').val();
+                var edad = $('#edad').val();
+
+                // Envío de datos a Node.js usando AJAX
+                $.ajax({
+                    url: '/api/datos', // URL del endpoint en Node.js
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ nombre: nombre, edad: edad }),
+                    success: function(response) {
+                        alert('Datos enviados correctamente: ' + response);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error al enviar los datos: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+CONTENIDO DE server.js
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = 3000;
+
+// Servir archivos estáticos (como HTML)
+app.use(express.static(path.join(__dirname)));
+app.use(bodyParser.json());
+
+// Ruta principal
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post('/api/datos', (req, res) => {
+    const { nombre, edad } = req.body;
+    console.log(`Nombre: ${nombre}, Edad: ${edad}`);
+    res.send(`Datos recibidos: Nombre - ${nombre}, Edad - ${edad}`);
+});
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+
+
+GUARDAR DATOS EN DISCO (ARCHIVO PLANO):
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const fs = require('fs'); // Importar el módulo fs
+
+const app = express();
+const PORT = 3000;
+
+// Servir archivos estáticos (como HTML)
+app.use(express.static(path.join(__dirname)));
+app.use(bodyParser.json());
+
+// Ruta principal
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Ruta para recibir datos y almacenarlos en un archivo
+app.post('/api/datos', (req, res) => {
+    const { nombre, edad } = req.body;
+    console.log(`Nombre: ${nombre}, Edad: ${edad}`);
+
+    // Crear una cadena con los datos a almacenar
+    const datos = `Nombre: ${nombre}, Edad: ${edad}\n`;
+
+    // Guardar los datos en un archivo plano
+    fs.appendFile('datos.txt', datos, (err) => {
+        if (err) {
+            console.error('Error al guardar los datos:', err);
+            return res.status(500).send('Error al guardar los datos');
+        }
+        res.send(`Datos recibidos y almacenados: Nombre - ${nombre}, Edad - ${edad}`);
+    });
+});
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+
+GUARDAR EN BASE DE DATOS POSTGRESQL:
+#### Adaptación del código para usar PostgreSQL
+
+Para almacenar los datos en una base de datos PostgreSQL en lugar de un archivo plano, necesitarás instalar el paquete `pg`, que es el cliente de PostgreSQL para Node.js. A continuación, te muestro cómo modificar tu código para que funcione con PostgreSQL.
+
+##### 1. Instala el paquete `pg`
+
+Ejecuta el siguiente comando en tu terminal para instalar el cliente de PostgreSQL:
+
+```bash
+npm install pg
+```
+
+##### 2. Configura la conexión a la base de datos
+
+Modifica tu archivo `server.js` para incluir la configuración de la conexión a PostgreSQL y para insertar los datos en la base de datos. Aquí tienes el código completo modificado:
+
+```javascript
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const { Client } = require('pg'); // Importar el cliente de PostgreSQL
+
+const app = express();
+const PORT = 3000;
+
+// Configuración de la conexión a PostgreSQL
+const client = new Client({
+    user: 'tu_usuario', // Reemplaza con tu usuario de PostgreSQL
+    host: 'localhost',
+    database: 'tu_base_de_datos', // Reemplaza con el nombre de tu base de datos
+    password: 'tu_contraseña', // Reemplaza con tu contraseña
+    port: 5432,
+});
+
+// Conectar a la base de datos
+client.connect(err => {
+    if (err) {
+        console.error('Error al conectar a la base de datos', err.stack);
+    } else {
+        console.log('Conectado a la base de datos PostgreSQL');
+    }
+});
+
+// Servir archivos estáticos (como HTML)
+app.use(express.static(path.join(__dirname)));
+app.use(bodyParser.json());
+
+// Ruta principal
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Ruta para recibir datos y almacenarlos en la base de datos
+app.post('/api/datos', (req, res) => {
+    const { nombre, edad } = req.body;
+    console.log(`Nombre: ${nombre}, Edad: ${edad}`);
+
+    // Consulta SQL para insertar los datos
+    const query = 'INSERT INTO usuarios(nombre, edad) VALUES($1, $2) RETURNING *';
+    const values = [nombre, edad];
+
+    client.query(query, values, (err, result) => {
+        if (err) {
+            console.error('Error al insertar los datos:', err);
+            return res.status(500).send('Error al insertar los datos');
+        }
+        res.send(`Datos recibidos y almacenados: Nombre - ${result.rows[0].nombre}, Edad - ${result.rows[0].edad}`);
+    });
+});
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+```
+
+##### 3. Crea la tabla en PostgreSQL
+
+Antes de ejecutar tu aplicación, asegúrate de que la tabla `usuarios` exista en tu base de datos. Puedes crearla ejecutando el siguiente comando SQL en tu cliente de PostgreSQL:
+
+```sql
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    edad INT
+);
+```
+
+##### 4. Ejecuta el servidor
+
+Asegúrate de que tu servidor esté en ejecución. Cuando envíes datos desde tu formulario HTML, estos se almacenarán en la tabla `usuarios` de tu base de datos PostgreSQL.
+
+### Resumen
+
+- **Instalación del cliente `pg`**: Para interactuar con PostgreSQL.
+- **Configuración de la conexión**: Especifica los detalles de tu base de datos.
+- **Inserción de datos**: Utiliza una consulta SQL para almacenar los datos en la base de datos.
+
+Con estos cambios, tu aplicación ahora puede almacenar datos en una base de datos PostgreSQL. ¡Espero que esto te sea útil!

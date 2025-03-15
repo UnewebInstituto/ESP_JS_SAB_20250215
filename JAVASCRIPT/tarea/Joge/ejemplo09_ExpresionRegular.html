@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo09 Expresion Regular</title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Expresiones Regulares</h1>
+        <!--
+        <form action="">
+        -->
+        <div class="form-group">
+            <label for="">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" onblur="validarNombre()">
+            <div id="msjNombre"></div>
+        </div>
+        <div class="form-group">
+            <label for="">Apellido</label>
+            <input type="text" class="form-control" name="apellido" id="apellido" onblur="validarApellido()">
+            <div id="msjApellido"></div>
+
+        </div>
+        <div class="form-group">
+            <label for="">Correo Electronico</label>
+            <input type="email" class="form-control" name="Correo" id="correo" onblur="validarCorreo()">
+            <div id="msjCorreo"></div>
+
+        </div>
+        <div class="form-group">
+            <label for="">Clave</label>
+            <input type="password" class="form-control" name="clave1" id="clave1" onblur="validarClave1()">
+            <div id="msjClave1"></div>
+        </div>
+        <div class="form-group">
+            <label for="">Repetir Clave</label>
+            <input type="password" class="form-control" name="clave2" id="clave2" onblur="validarClave2()">
+            <div id="msjClave2"></div>
+        </div>
+        <div class="form-group" style="margin-top: 20px">
+            <button id="btnEnviar" class="btn btn-success" disabled>Enviar</button>
+            <button onclick="btnLimpiar()" id="btnLimpiar" class="btn btn-warning">Limpiar</button>
+        </div>
+        <!-- 
+        </form>
+        -->
+
+    </div>
+    <script>
+        //Declaración de Funciones
+
+        function validarNombre() {
+            let expRegNombre = /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/;
+            let nombre = document.getElementById('nombre').value;
+            let msjNombre = document.getElementById('msjNombre');
+            if (expRegNombre.test(nombre)) {
+                ctrlNombre = true;
+                msjNombre.innerHTML = '';
+            } else {
+                ctrlNombre = false;
+                msjNombre.style.fontSize = '14px';
+                msjNombre.style.color = 'red';
+                msjNombre.innerHTML = 'ERROR: En el nombre solo se adminten letras y espacios en blanco'
+            }
+            validarControle();
+        }
+
+        function validarApellido() {
+            let expRegApellido = /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/;
+            let apellido = document.getElementById('apellido').value;
+            let msjApellido = document.getElementById('msjApellido');
+            if (expRegApellido.test(apellido)) {
+                ctrlAPellido = true;
+                msjApellido.innerHTML = '';
+            } else {
+                ctrlAPellido = false;
+                msjApellido.style.fontSize = '14px';
+                msjApellido.style.color = 'red';
+                msjApellido.innerHTML = 'ERROR: En el nombre solo se adminten letras y espacios en blanco'
+            }
+            validarControle();
+        }
+        function validarCorreo() {
+            let expRegCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            let correo = document.getElementById('correo').value;
+            let msjCorreo = document.getElementById('msjCorreo');
+            if (expRegCorreo.test(correo)) {
+                ctrlCorreo = true;
+                msjCorreo.innerHTML = '';
+            } else {
+                ctrlCorreo = false;
+                msjCorreo.style.fontSize = '14px';
+                msjCorreo.style.color = 'red';
+                msjCorreo.innerHTML = 'ERROR: El correo no tiene los parametros correctos!'
+            }
+            validarControle();
+        }
+        function validarClave1() {
+            let expRegClave = /^[A-Z][a-zA-Z0-9!"#$%&/()=?¿]{5,13}[0-9][!"#$%&/()=?¿]$/;
+            let clave1 = document.getElementById('clave1').value;
+            let msjClave1 = document.getElementById('msjClave1');
+            if (expRegClave.test(clave1)) {
+                ctrlClave1 = true;
+                msjClave1.innerHTML = '';
+            } else {
+                ctrlClave1 = false;
+                msjClave1.style.fontSize = '14px';
+                msjClave1.style.color = 'red';
+                msjClave1.innerHTML = 'ERROR: La contrasena no cumple con los parametros de seguridad!!'
+            }
+            validarControle();
+        }
+        function validarClave2() {
+            let clave1 = document.getElementById('clave1').value;
+            let clave2 = document.getElementById('clave2').value;
+            let msjClave2 = document.getElementById('msjClave2');
+            if (clave1 == clave2) {
+                ctrlClave2 = true;
+                msjClave2.innerHTML = '';
+            } else {
+                ctrlClave2 = false;
+                msjClave2.style.fontSize = '14px';
+                msjClave2.style.color = 'red';
+                msjClave2.innerHTML = 'ERROR: La contrasena no coinciden!!'
+            }
+            validarControle();
+        }
+
+        function btnLimpiar() {
+            let entradas = document.getElementsByTagName("input");
+            for (let i = 0; i < entradas.length; i++) {
+                entradas[i].value = 0;
+            }
+        }
+
+        function validarControle() {
+            if (ctrlNombre == true && ctrlAPellido == true && ctrlCorreo == true && ctrlClave1 == true && ctrlClave2 == true) {
+                document.getElementById('btnEnviar').disabled = false;
+            } else {
+                document.getElementById('btnEnviar').disabled = true;
+            }
+        }
+
+        //Declaracion de Variables
+        let ctrlNombre = false;
+        let ctrlAPellido = false;
+        let ctrlCorreo = false;
+        let ctrlClave1 = false;
+        let ctrlClave2 = false;
+
+    </script>
+</body>
+
+</html>

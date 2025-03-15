@@ -1,0 +1,100 @@
+mariapenarojas279@gmail.com;
+jorgebrito932@gmail.com;
+abrahambalda@gmail.com;
+pmbalda@gmail.com;
+
+
+https://developer.mozilla.org/es/
+https://developer.mozilla.org/es/docs/Web/CSS
+https://es.wikipedia.org/wiki/Extensible_Markup_Language
+https://es.wikipedia.org/wiki/JSON
+https://developer.mozilla.org/es/docs/Web/JavaScript
+
+
+https://htmlcheatsheet.com/js/
+
+
+#### **Formas de notación de variables**
+
+En programación, las notaciones de variables son convenciones utilizadas para nombrar identificadores (como variables, funciones o clases) de manera clara y consistente. Estas notaciones ayudan a mejorar la legibilidad del código y a seguir estándares comunes. A continuación, se describen las notaciones más comunes:
+
+---
+
+#### **1. Camel Case (camelCase)**
+- **Descripción:** En esta notación, las palabras se escriben juntas sin espacios, y la primera letra de cada palabra, excepto la primera, se escribe en mayúscula. Es común en lenguajes como JavaScript, Java y C#.
+- **Ejemplo:**
+  ```javascript
+  let miVariableEjemplo = "Hola";
+  ```
+- **Uso:** Se utiliza principalmente para nombres de variables y funciones.
+
+---
+
+#### **2. Pascal Case (PascalCase)**
+- **Descripción:** Similar al Camel Case, pero en este caso, la primera letra de **todas las palabras** se escribe en mayúscula. Es común para nombres de clases en lenguajes como C# y Java.
+- **Ejemplo:**
+  ```java
+  class MiClaseEjemplo {
+      // Código aquí
+  }
+  ```
+- **Uso:** Se utiliza principalmente para nombres de clases y constructores.
+
+---
+
+#### **3. Snake Case (snake_case)**
+- **Descripción:** Las palabras se separan con guiones bajos (`_`), y todas las letras suelen estar en minúsculas. Es común en lenguajes como Python y Ruby.
+- **Ejemplo:**
+  ```python
+  mi_variable_ejemplo = "Hola"
+  ```
+- **Uso:** Se utiliza para variables y funciones en lenguajes que prefieren esta convención.
+
+---
+
+#### **4. Kebab Case (kebab-case)**
+- **Descripción:** Similar al Snake Case, pero las palabras se separan con guiones (`-`) en lugar de guiones bajos. Es común en nombres de archivos o identificadores CSS.
+- **Ejemplo:**
+  ```css
+  .mi-clase-ejemplo {
+      color: red;
+  }
+  ```
+- **Uso:** Se utiliza principalmente en nombres de clases CSS o identificadores HTML.
+
+---
+
+#### **5. Notación Húngara**
+- **Descripción:** Consiste en añadir un prefijo al nombre de la variable que indica su tipo o propósito. Por ejemplo, `str` para cadenas o `int` para enteros.
+- **Ejemplo:**
+  ```c
+  int iEdad = 25; // 'i' indica que es un entero
+  char* strNombre = "Juan"; // 'str' indica que es una cadena
+  ```
+- **Uso:** Fue popular en lenguajes como C, pero su uso ha disminuido con el tiempo.
+
+---
+
+#### **6. Notación para constantes (UPPER_CASE)**
+- **Descripción:** Las constantes suelen escribirse en mayúsculas, separando las palabras con guiones bajos (`_`).
+- **Ejemplo:**
+  ```c
+  const int MAX_VALOR = 100;
+  ```
+- **Uso:** Se utiliza para valores que no cambian durante la ejecución del programa.
+
+---
+
+#### **Comparación de notaciones**
+| **Notación**    | **Ejemplo**             | **Uso común**                     |
+|------------------|-------------------------|------------------------------------|
+| Camel Case       | `miVariableEjemplo`    | Variables, funciones              |
+| Pascal Case      | `MiClaseEjemplo`       | Clases, constructores             |
+| Snake Case       | `mi_variable_ejemplo`  | Variables, funciones (Python)     |
+| Kebab Case       | `mi-clase-ejemplo`     | Clases CSS, identificadores HTML  |
+| UPPER_CASE       | `MAX_VALOR`            | Constantes                        |
+| Notación Húngara | `strNombre`, `iEdad`   | Variables con prefijos de tipo    |
+
+---
+
+Estas convenciones son esenciales para mantener un código limpio y fácil de entender. ¡Elige la que mejor se adapte al lenguaje y al equipo con el que trabajas! 😊

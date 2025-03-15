@@ -1,0 +1,3 @@
+https://es.wikipedia.org/wiki/AJAX
+
+https://htmlcheatsheet.com/jquery/
