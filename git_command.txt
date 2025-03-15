@@ -1,0 +1,15 @@
+echo "# ESP_JS_SAB_20250215" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/UnewebInstituto/ESP_JS_SAB_20250215.git
+git push -u origin main
+
+
+git config --global core.autocrlf true
+
+
+git remote add origin https://github.com/UnewebInstituto/ESP_JS_SAB_20250215.git
+git branch -M main
+git push -u origin main
