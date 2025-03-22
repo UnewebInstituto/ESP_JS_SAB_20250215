@@ -27,8 +27,17 @@
                   class="form-control">
             </div>
          </div>
-         <div class="form-group">
-            <button class="btn btn-primary">Añadir</button>
+         <div class="row">
+            <div class="form-group col-md-6">
+               <label for="correo">Correo electrónico del estudiante</label>
+               <input type="email" name="correo" id="correo" placeholder="Ingrese correo electrónico del estudiante"
+               class="form-control">
+            </div>
+         </div>
+         <div class="row">
+            <div class="form-group">
+               <button class="btn btn-primary">Añadir</button>
+            </div>
          </div>
       </form>
       <div id="resultado"></div>
@@ -41,20 +50,23 @@
             // Tomar los valores de los input del formulario
             var nombre = $('#nombre').val();
             var edad = $('#edad').val();
+            var correo = $('#correo').val();
             // Envío al servidor NodeJS
             $.ajax({
                url: 'api/datos',
                type: 'POST',
                contentType: 'application/json',
-               data: JSON.stringify({ 'nombre': nombre, 'edad': edad }),
+               data: JSON.stringify({ 'nombre': nombre, 'edad': edad, 'correo':correo }),
                success: function (response) {
-                  alert('DATOS ENVIADOS CORRECTAMENTE:' + response);
                   $('#resultado').html(response);
+                  // Se inicializan los campos de entrada
+                  $('#nombre').val('');
+                  $('#edad').val('');
+                  $('#correo').val('');
                },
                error: function (xhr, status, error) {
-                  alert('ERROR AL ENVIAR LOS DATOS:' + error);
-                  $('#resultado').html(error);
-
+                  console.log(xhr, status, error);
+                  $('#resultado').html(xhr.responseText);
                }
             })
          });

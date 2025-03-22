@@ -1,0 +1,6 @@
+abraham;20;
+Pedro;46;
+abraham;20;
+Dayan;53;
+abraham;21;
+Esther;14;

@@ -25,7 +25,12 @@
 
                     <div class="form-group col-md-6">
                         <label for="edad">Edad del estudiante:</label>
-                        <input type="text" type="number" name="edad" id="edad" placeholder="Ingrese edad del estudiante" min="0" max="120" class="form-control">
+                        <input type="text" name="edad" id="edad" placeholder="Ingrese edad del estudiante" min="0" max="120" class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="correo">Correo electronico:</label>
+                        <input type="email" name="correo" id="correo" placeholder="Ingrese correo electronico del estudiante" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -49,20 +54,25 @@
                 //Tomar los valores de lo input del formulario
                 var nombre = $('#nombre').val();
                 var edad = $('#edad').val();
+                var correo = $('#correo').val();
 
                 //Envío al servidor NodeJS
                 $.ajax({
                     url: 'api/datos',
                     type: 'POST',
                     contentType: 'application/json',
-                     data: JSON.stringify({'nombre':nombre, 'edad':edad}),
+                     data: JSON.stringify({'nombre':nombre, 'edad':edad, 'correo': correo}),
                     success: function(response){
-                        alert('Datos enviados correctamente' + response)
+                        //alert('Datos enviados correctamente' + response)
+                        //Se inicializan los campos de entrada
                         $('#resultado').html(response);
+                        $('#nombre').val('');
+                        $('#edad').val('');
+                        $('#correo').val('');
                     },
                     error: function(xhr, status, error){
-                        alert('Error al enviar datos:' + error)
-                        $('#resultado').html(error);
+                        //alert('Error al enviar datos:' + error)
+                        $('#resultado').html(xhr.responseText);
                     }
                 })
             });

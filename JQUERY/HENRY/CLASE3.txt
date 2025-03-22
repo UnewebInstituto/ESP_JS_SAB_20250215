@@ -1,0 +1,93 @@
+Microsoft Windows [Versión 10.0.19045.4046]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\ESP_JS_SAB_20250215>cd jquery
+
+C:\ESP_JS_SAB_20250215\JQUERY>dir
+ El volumen de la unidad C no tiene etiqueta.
+ El número de serie del volumen es: 765F-A4AD
+
+ Directorio de C:\ESP_JS_SAB_20250215\JQUERY
+
+22/03/2025  08:30    <DIR>          .
+22/03/2025  08:30    <DIR>          ..
+22/03/2025  08:30    <DIR>          ABRAHAM
+22/03/2025  08:30    <DIR>          bootstrap
+22/03/2025  08:30    <DIR>          HENRY
+22/03/2025  08:30    <DIR>          img
+22/03/2025  08:30    <DIR>          JORGE
+22/03/2025  08:30           296.030 jquery-3.7.1.js
+22/03/2025  08:30            87.535 jquery-3.7.1.min.js
+22/03/2025  08:30    <DIR>          MARIA
+22/03/2025  08:30             7.465 nota.txt
+22/03/2025  08:30    <DIR>          PEDRO
+               3 archivos        391.030 bytes
+               9 dirs  337.723.514.880 bytes libres
+
+C:\ESP_JS_SAB_20250215\JQUERY>cd henry
+
+
+https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto
+
+
+ACCESO A MYSQL
+
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+
+-- Creación de base de datos
+create database bdespjs_henry;
+
+-- Mostrar las bases de datos
+show databases like '%bdespjs%';
+
+-- Conexión a la base de datos
+use bdespjs_henry;
+
+-- Creación de la tabla encuestas
+create table encuestas(
+    id integer auto_increment,
+    nombre_estudiante varchar(255),
+    edad integer,
+    primary key(id)
+);
+
+show tables;
+describe encuestas;
+show create table encuestas;
+
+MÓDULO A INSTALAR PARA TRABAJAR CON MARIADB DESDE NODE
+npm install mariadb
+
+MÓDULO A INSTALAR PARA TRABAJAR CON MARIADB DESDE NODE
+npm install pg
+
+-- COMANDO A EJECUTAR
+INSERT INTO encuestas(nombre_estudiante, edad) VALUES ('YOLANDA TORTOZA', 45);
+
+ALTER TABLE encuestas add column correo varchar(255);
+ALTER TABLE encuestas add unique(correo);
+
+UPDATE encuestas SET correo = 'yt@gmail.com' where id = 1;
+UPDATE encuestas SET correo = 'av@gmail.com' where id = 2;
+UPDATE encuestas SET correo = 'dr@gmail.com' where id = 3;
+
+-- PRUEBA
+INSERT INTO encuestas(nombre_estudiante,edad,correo)
+values ('ANA VICTORIA',25, 'av@gmail.com');
+
+1) Acceder
+https://bootstrapmade.com/
+
+2) Descargar plantilla de su elección
+
+3) Iniciar el servidor con la plantilla seleccionada

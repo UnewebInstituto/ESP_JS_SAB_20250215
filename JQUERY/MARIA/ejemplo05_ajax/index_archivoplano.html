@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejemplo 04</title>
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <script src="./bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejemplo 05 Ajax</h1>
+        <h2>Encuesta</h2>
+        <form id="myForm"  >
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="">Nombre  del estudiante</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre y apellido del estudiante" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="">edad  del estudiante</label>
+                <input type="number" name="edad" id="edad" placeholder="Ingrese la edad del estudiante" class="form-control">
+            </div>
+            <div class="row">
+            <div class="form-group col-md-6">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" name="correo" id="correo" placeholder="Ingrese correo electrónico del estudiante"
+                 class="form-control">
+        </div>
+            <div class="form-group">
+            <button  id="btnAnadir" class="btn btn-primary">Añadir</button>
+        </div>
+    </form>
+        <div id="resultado"></div>
+    </div>
+<script>
+    $(document).ready(function(){
+        $('#myForm').on('submit', function(){
+            //evitar que el formulario se envie al recargar
+            event.preventDefault(); 
+//toma los valores de los input del formulario 
+            var nombre = $('#nombre').val();
+            var edad = $('#edad').val();
+//envio al servidor NodeJS
+        $.ajax({
+            url:'api/datos',
+            type: 'POST',
+            contentType:'application/json',
+            data: JSON.stringify({'nombre': nombre, 'edad': edad}),
+            success: function(response){
+                $('#resultado').html(response);
+                $('#nombre').val('');
+                $('#edad').val('');
+                
+            },
+            error: function(xhr,status,error){
+                alert('Error alEnviar Datos' + error)
+                $('#resultado').html(error);
+            },
+        })
+    
+    });
+})
+</script>
+
+</body>
+</html>

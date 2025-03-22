@@ -17,13 +17,17 @@
         <h2>Encuesta de Edades</h2>
         <form id="myForm">
             <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="" class="form-label">Nombre del Estudiante</label>
                     <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="" class="form-label">Edad del Estudiante</label>
                     <input type="number" min="0" max="120" id="edad" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="" class="form-label">Correo Electrónico</label>
+                    <input type="email" name="correo" id="correo" class="form-control">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary">Añadir</button>
@@ -35,15 +39,16 @@
     <script>
 
         $(document).ready(function () {
-            $("#myForm").on("submit", (function () {
+            $("#myForm").on("submit", (function (event) {
                 //Evitar que el formulario se envie al recargar
 
-                event.preventDefault;
+                event.preventDefault();
 
                 //Tomar los valores de los input del formulaio
 
                 var nombre = $("#nombre").val();
                 var edad = $("#edad").val();
+                var correo = $("#correo").val();
 
                 //Envío al servidor Nodejs
 
@@ -51,14 +56,15 @@
                     url: 'api/datos',
                     method: 'POST',
                     contentType: 'application/JSON',
-                    data: JSON.stringify({ 'nombre': nombre, 'edad': edad }),
+                    data: JSON.stringify({ 'nombre': nombre, 'edad': edad, 'correo':correo }),
                     success: function (response) {
-                        alert("Datos enviados correctamente: " + response);
                         $('#resultado').html(response);
+                        $("#nombre").val("");
+                        $("#edad").val("");
+                        $("#correo").val("");
                     },
                     error: function (xhr, status, error) {
-                        alert("Error al enviar datos: " + error);
-                        $('#resultado').html(error);
+                        $('#resultado').html(xhr.responseText);
                     },
                 })
 

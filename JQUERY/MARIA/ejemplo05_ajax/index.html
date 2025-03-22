@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Ejemplo 04 Agregar-Vaciar</h1>
-        <h2>FORMULARIO</h2>
+        <h1>Ejemplo 05 Ajax</h1>
+        <h2>Encuesta</h2>
         <form id="myForm"  >
         <div class="row">
             <div class="form-group col-md-6">
@@ -22,10 +22,16 @@
                 <label for="">edad  del estudiante</label>
                 <input type="number" name="edad" id="edad" placeholder="Ingrese la edad del estudiante" class="form-control">
             </div>
+            <div class="row">
+            <div class="form-group col-md-6">
+                <label for="correo">Correo electronico</label>
+                <input type="email" name="correo" id="correo" placeholder="Ingrese correo electronico del estudiante"
+                 class="form-control">
         </div>
+              
             <div class="form-group">
-            <button  id="btnAnadir" class="btn btn-primary">Añadir</button>
-        </div>
+                <button  id="btnAnadir" class="btn btn-primary">Añadir</button>
+            </div>
     </form>
         <div id="resultado"></div>
     </div>
@@ -37,18 +43,23 @@
 //toma los valores de los input del formulario 
             var nombre = $('#nombre').val();
             var edad = $('#edad').val();
+            var correo = $('#correo').val();
 //envio al servidor NodeJS
         $.ajax({
             url:'api/datos',
             type: 'POST',
             contentType:'application/json',
-            data: JSON.stringify({'nombre': nombre, 'edad': edad}),
+            data: JSON.stringify({'nombre': nombre, 'edad': edad, 'correo':correo }),
             success: function(response){
-                alert('Datos Enviados Correctamente:' +response)
+                $('#resultado').html(response);
+                $('#nombre').val('');
+                $('#edad').val('');
+                $('#correo').val('');
+                
             },
-            error: function(xhr,status,error){
-                alert('Error alEnviar Datos' + error)
-                $('#resultado').html(error);
+            error: function (xhr, status, error) {
+                console.log(xhr, status, error);
+                $('#resultado').html(xhr.responseText);
             },
         })
     
