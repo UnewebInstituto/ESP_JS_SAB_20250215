@@ -1,0 +1,115 @@
+https://angular.dev/
+
+https://angular.dev/installation#prerequisites
+
+INSTALACIÓN DE LA INTERFACE DE COMANDOS PARA INTERACTUAR CON ANGULAR
+(DESDE EL COMMAND PROMPT DE WINDOWS)
+npm install -g @angular/cli
+
+CREACIÓN DEL PROYECTO
+ng new my-first-angular-app
+
+VERSIÓN
+C:\Users\Profe\AppData\Roaming\npm\ng version
+
+C:\Users\Profe\AppData\Roaming\npm\ng new my-first-angular-app
+
+
+VAMOS A DEFINIR PUERTOS DIFERENTES PARA LA EJECUCIÓN
+HENRY 5000
+JORGE 5001
+ABRAHAM 5002
+PEDRO 5003
+MARÍA 5004
+
+ARCHIVO angular.json
+
+   "architect": {
+       "serve": {
+           "options": {
+               "port": 4200
+           }
+       }
+   }
+
+
+       "options": {
+            "port": 5000
+          },
+
+LEVANTAR EL PROYECTO:
+C:\ESP_JS_SAB_20250215\ANGULAR\HENRY\my-first-angular-app>npm start
+
+C:\ESP_JS_SAB_20250215\ANGULAR\HENRY\my-first-angular-app>npm start
+
+> my-first-angular-app@0.0.0 start
+> ng serve
+
+Component HMR has been enabled.
+If you encounter application reload issues, you can manually reload the page to bypass HMR and/or disable this feature with the `--no-hmr` command line option.       
+Please consider reporting any issues you encounter here: https://github.com/angular/angular-cli/issues
+
+Initial chunk files | Names         |  Raw size   
+polyfills.js        | polyfills     |  90.20 kB | 
+main.js             | main          |  23.11 kB |
+styles.css          | styles        |  95 bytes |
+
+                    | Initial total | 113.41 kB
+
+Application bundle generation complete. [3.446 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.  ➜  Local:   http://localhost:5000/
+  ➜  press h + enter to show help
+h
+
+  Shortcuts
+  press r + enter to force reload browser
+  press u + enter to show server url     
+  press o + enter to open in browser     
+  press c + enter to clear console
+  press q + enter to quit
+u
+
+  ➜  Local:   http://localhost:5000/
+
+
+https://angular.dev/essentials/components
+
+
+#### Cómo Evitar que JSON Transforme `\\` a `\/`
+
+Cuando trabajas con JSON en JavaScript, es común que al convertir un objeto a una cadena JSON utilizando `JSON.stringify()`, los caracteres de barra invertida (`\`) se escapen automáticamente. Sin embargo, si deseas evitar que se transformen en `\/`, aquí hay algunas consideraciones y soluciones:
+
+##### 1. Entender el Comportamiento de JSON.stringify()
+
+El método `JSON.stringify()` convierte un objeto JavaScript en una cadena JSON. Durante este proceso, ciertos caracteres, como las barras invertidas, se escapan para asegurar que la cadena resultante sea válida. Por ejemplo, `\\` se convierte en `\\\\`, y las barras diagonales (`/`) pueden ser convertidas a `\/` para evitar problemas en ciertos contextos, como en HTML.
+
+##### 2. Evitar la Transformación de `\/`
+
+Si tu objetivo es evitar que `\/` aparezca en la cadena JSON, puedes usar una función de reemplazo en `JSON.stringify()`. Aquí tienes un ejemplo:
+
+```javascript
+const obj = {
+    path: "C:\\Users\\Nombre\\Archivo"
+};
+
+const jsonString = JSON.stringify(obj, (key, value) => {
+    if (typeof value === 'string') {
+        return value.replace(/\/\//g, '/'); // Reemplaza // por /
+    }
+    return value;
+});
+
+console.log(jsonString);
+```
+
+En este ejemplo, se utiliza una función de reemplazo para modificar la cadena antes de que se convierta en JSON. Sin embargo, ten en cuenta que `JSON.stringify()` no convierte `\\` a `\/` por sí mismo, a menos que se esté utilizando en un contexto específico que lo requiera.
+
+##### 3. Usar un Formato Alternativo
+
+Si necesitas un formato específico que no escape las barras de la manera que deseas, considera usar una biblioteca de serialización diferente o manipular la cadena resultante después de la conversión. Sin embargo, esto puede llevar a problemas de validez JSON si no se maneja correctamente.
+
+### Conclusión
+
+El comportamiento de `JSON.stringify()` es estándar y está diseñado para asegurar que las cadenas JSON sean válidas. Si necesitas un formato específico, puedes usar funciones de reemplazo o considerar alternativas de serialización. Asegúrate de probar cualquier solución para garantizar que los datos se mantengan válidos y utilizables.
