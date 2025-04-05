@@ -1,17 +1,17 @@
 *{
   margin: 0px;
-  padding: 0px;
   font-family: Arial, Helvetica, sans-serif;
 }
 h1{
   text-align: center;
 }
 table, td, th{
+  margin: auto;
   border-style: solid;
   border-width: 1px;
   border-color: gray;
 }
-hr{
-  margin-top: 10px;
-  margin-bottom: 10px;
+hr, div{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

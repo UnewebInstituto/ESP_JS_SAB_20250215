@@ -6,6 +6,7 @@ git branch -M main
 git remote add origin https://github.com/UnewebInstituto/ESP_JS_SAB_20250215.git
 git push -u origin main
 
+git remote remove origin
 
 git config --global core.autocrlf true
 

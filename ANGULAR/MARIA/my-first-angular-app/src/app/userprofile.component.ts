@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserBiography } from './userbiography.component';  
 import { ProfilePhoto } from './profilephoto.component';
 
@@ -12,8 +12,18 @@ import { ProfilePhoto } from './profilephoto.component';
       <td><user-biography/></td>
       <td><profile-photo/></td>
     </tr>
-  </table>`,
+  </table>
+  <hr/>
+  <h2>Comunicacion de componentes</h2>
+  <b>Ocupacion del Usuario:</b><u> {{ocupacion}} </u>
+  <b>,Nombre del usuario:</b><u> {{nombre}} </u>
+  
+  `,
   styleUrl:'./userprofile.component.css'
 })
-export class UserProfile { /* Your component code goes here */ }
+export class UserProfile { /* Your component code goes here */ 
+  @Input() ocupacion = '';
+  @Input() nombre = 'MARIA PEÑA';
+  
+}
 

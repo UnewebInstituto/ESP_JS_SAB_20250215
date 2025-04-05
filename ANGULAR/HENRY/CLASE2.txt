@@ -1,0 +1,19 @@
+https://angular.dev/tools/libraries/using-libraries#adding-a-library-to-the-runtime-global-scope
+1-) instalación de bootstrap en el direcotrio del proyecto.
+
+C:\ESP_JS_SAB_20250215\ANGULAR\HENRY>cd my-first-angular-app
+npm install bootstrap
+npm install jquery
+
+2-) Se incorporan las rutas en el archivo angular.json
+Por ejemplo:
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/bootstrap/dist/jquery.min.js"
+            ]
+
+this.addItemEvent.emit('🐢');
