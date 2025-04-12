@@ -1,16 +1,87 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, Injectable } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { UserProfile } from './userprofile.component';
 import { ChildComponent } from './child.component';
 import { CommentsComponent } from "./comments.component";
 import { NgOptimizedImage } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+declare var $: any;
+
+//Creando Servicios Inyectados
+import { CarService } from './car.service';
+
+//Tuberias (Pipe)
+import { UpperCasePipe, LowerCasePipe, DecimalPipe, DatePipe, CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [UserProfile, ChildComponent, CommentsComponent, NgOptimizedImage],
+  imports: [UserProfile, ChildComponent, CommentsComponent, NgOptimizedImage, RouterOutlet, RouterLink, ReactiveFormsModule, UpperCasePipe, LowerCasePipe, DecimalPipe, DatePipe, CurrencyPipe],
   //templateUrl: './app.component.html',
   template: `
   <div class="container">
+  <nav>
+    <a routerLink="/">Inicio</a>
+    |
+    <a routerLink="/user">Usuario</a>
+  </nav>
+  <router-outlet />
+  <hr/>
+
+ <h2>Formas reactivas en Angular</h2>
+  <form [formGroup]="profileform" (ngSubmit)="handleSubmit()">
+    <div class="mb-3 mt-3">
+      <label for="name" class="form-label">Nombre:</label>
+      <!--<input type="text" class="form-control" id="name" placeholder="Ingrese nombre" name="name">-->
+      <input type="text" class="form-control" id="name" placeholder="Ingrese nombre" formControlName="name">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo Electrónico:</label>
+      <!--<input type="email" class="form-control" id="email" placeholder="Ingrese correo electrónico" name="email">-->
+      <input type="email" class="form-control" id="email" placeholder="Ingrese correo electrónico" formControlName="email">
+    </div>
+    
+    <div id="datos">
+      <h2>Datos del formulario con perfil del usuario</h2>
+      <p>Nombre: {{profileform.value.name}}</p>
+      <p>Correo Electrónico: {{profileform.value.email}}</p>
+
+    </div>
+    <button id="btnenviar" type="submit" (click)="mostrar()" class="btn btn-warning" [disabled]="!profileform.valid">Mostrar</button>
+  </form>
+  <hr/>
+
+  <h2>Creando un Servicio Inyectable</h2>
+  <!-- Se coloca en comentario dado que se accede al servicio via constructor y no inyeccion
+  <div>
+    <label for="">Todos los Vehículos</label>
+    <p>{{ carService.getCars() }}</p>
+  </div>
+  <div>
+    <label for="">Vehículo 4</label>
+    <p>{{ carService.getCar(3) }}</p>
+  </div>
+-->
+  <div>
+    <label for="">Vehículos</label>
+    <p>{{ this.display }}</p>
+  </div>
+  <hr/>
+  <div>
+    <h2>Uso de tuberias (Pipe)</h2>
+    {{loudMessage | uppercase}}
+    <br>
+    {{username | lowercase}}
+    <br>
+    {{numero | number:"3.2-2"}}
+    <br>
+    {{fechanacimiento | date: 'medium'}}
+    <br>
+    {{costo | currency}}
+    <br>
+
+  </div>
+
+  <hr/>
   <h1>CLASE 1 Curso de Angular</h1>
   <p>Ejemplos desarrollados por {{autor}}, hoy es la clase numero: {{ 6 + 1 }}</p>
   <br/>
@@ -117,11 +188,11 @@ import { NgOptimizedImage } from '@angular/common';
   <ul>
     <li>
       Imagen Estática
-      <img ngSrc="img/2.jfif" alt="Imagen paisaje número 2" width="32px" height="32px">
+      <img ngSrc="img/2.jfif" alt="Imagen paisaje número 2" width="32" height="32">
     </li>
     <li>
       Imagen Dinámica
-      <img [ngSrc]="Imgurl" [alt]="Imgalt" width="32px" height="32px">
+      <img [ngSrc]="Imgurl" [alt]="Imgalt" width="32" height="32">
     </li>
   </ul>
 
@@ -140,6 +211,15 @@ export class AppComponent {
   isEditable = true;
   imageURL = "img/1.jfif";
   mensaje = '';
+  ctrlMostrar = true;
+  display = '';
+
+  //Uso de tuberias
+  loudMessage = 'nosotros pensamos que hacemos algo grande';
+  username = 'PEDRO BALDA';
+  numero = 12345.6789;
+  fechanacimiento = new Date(1978,11,9);
+  costo = 21000.25
 
   //Comunicación de componentes con Output
   items = new Array();
@@ -164,7 +244,46 @@ export class AppComponent {
     console.log(this.items);
   };
 
+  //Declaracion para formas reactivas en Angular
+  profileform = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+  })
+
+  //Creando servicios inyectados
+
+  //Se coloca en comentario dado que se ha pasdo el servicio como atributo del constructor de la clase
+  //carService = inject(CarService);
+
+
   //Optimización de Imagen
-  Imgurl="Img/3.jfif";
+  Imgurl="img/3.jfif";
   Imgalt="Imagen paisaje número 3";
+
+  //Formas reactivas 
+  handleSubmit(){
+    alert(this.profileform.value.name + "|" + this.profileform.value.email);
+  }
+
+  mostrar(){
+    if (this.ctrlMostrar){
+      $("#datos").show(3000);
+      this.ctrlMostrar = false;
+      $("#btnenviar").html("Ocultar");
+    } else {
+      $("#datos").hide(3000);
+      $("#btnenviar").html("Mostrar");
+      this.ctrlMostrar = true;
+    }
+    
+  }
+  //Constructor por Inyeccion
+  /*constructor(){
+    this.display = this.carService.getCars().join (' ⭐ ');
+  }*/
+
+    //Constructor por Atributos
+    constructor(private carService:CarService){
+      this.display = this.carService.getCars().join (' ⭐ ');
+    }
 }

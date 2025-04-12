@@ -1,17 +1,93 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { UserProfile } from './userprofile.component';
 import { ChildComponent } from './child.component';
 import { CommentsComponent } from "./comments.components";
 import { NgOptimizedImage } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+//import * as $ from 'jquery';
+declare var $: any;
+
+//creando servicios Inyectables
+import { CarService } from './car.service';
+
+//Tuberias (Pipe)
+import { UpperCasePipe, LowerCasePipe, DatePipe, DecimalPipe, CurrencyPipe } from '@angular/common';
 
 //  templateUrl: './app.component.html',
 
 @Component({
   selector: 'app-root',
-  imports: [UserProfile, ChildComponent, CommentsComponent, NgOptimizedImage],
+  imports: [UserProfile, ChildComponent, CommentsComponent, NgOptimizedImage, RouterOutlet, RouterLink, ReactiveFormsModule, UpperCasePipe, LowerCasePipe, DecimalPipe, DatePipe, CurrencyPipe],
   template: `
+  
   <div class="container">
+  <nav>
+    <!--
+    Notacion antes de usar RouterLink
+    <a routerLink="/">Inicio</a>
+    |
+    <a routerLink="/user">Usuario</a>
+    -->
+    <a routerLink="/">Inicio</a>
+    |
+    <a routerLink="/user">Usuario</a>
+  </nav>
+  <router-outlet/>
+  <hr/>
+  
+  <h2>Formas reactivas en Angular</h2>
+  <form [formGroup]="profileForm"  (ngSubmit)="handleSubmit()">
+  <div class="mb-3 mt-3">
+    <label for="name" class="form-label">Nombre:</label>
+    <!--<input type="text" class="form-control" id="name" placeholder="Ingrese nombre" name="name">-->
+    <input type="text" class="form-control" id="name" placeholder="Ingrese nombre" formControlName="name">
+
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo electronico:</label>
+    <!--<input type="email" class="form-control" id="email" placeholder="Ingrese correo electronico" name="email">-->
+    <input type="email" class="form-control" id="email" placeholder="Ingrese correo electronico" formControlName="email">
+  </div>
+  <div id="datos" >
+    <h2>Datos del formulario con perfil del usuario</h2>
+    <p>Nombre: {{profileForm.value.name}}</p>
+    <p>Correp Electronico: {{profileForm.value.email}}</p>
+  </div>
+  <button type="submit" (click)="mostrar()" class="btn btn-warning" name="btnEnviar" 
+    [disabled]="!profileForm.valid">Mostra</button>
+  </form>
+  <hr/>
+    <h2>Creando un servicio Inyectable</h2>
+    <div>
+      <label for="">Todos los Vehiculos </label>
+      <!--
+      se coloca en comentario dado que se accede al servicio via constructor y no inyeccion
+      <p>{{ carService.getCars() }}</p>
+      -->
+    </div>
+    <div>
+      <label for="">Vehiculo numero 4</label>
+      <!--<p>{{carService.getCar(3)}}</p>-->
+      <br/>
+      <p>{{display}}</p>
+    </div>
+  <hr/>
+  <div>
+    <h2>Uso de Tuberias (Pipe)</h2>
+    {{ loudMessage | uppercase }}
+    <br>
+    {{userName | lowercase}}
+    <br>
+    Numero: {{numero | number:"3.2-2"}}
+    <br>
+    Fecha de Nacimiento: {{fechaNacimiento | date:'medium'}}
+    <br>
+    Costo: {{costo | currency }}
+
+  </div>
+
+  <hr/>
   <h1>CLASE 1 Curso de Angular</h1>
   <p>Ejemplos desarrollado por {{autor}}, hoy es la clase numero: {{ 6 + 1 }} <br/>
   @if(isLoggedIn){
@@ -129,7 +205,7 @@ import { NgOptimizedImage } from '@angular/common';
           </li>
         </ul>
     </div>
-    
+    <div>
   </div>
   `,
   styleUrl: './app.component.css'
@@ -144,6 +220,15 @@ export class AppComponent {
   isEditable = true;
   imageURL = 'img/1.jfif';
   mensaje= "";
+  ctrlMostrar = true;
+  //inyeccion
+  display = '';
+  //Uso de tuberias
+  loudMessage = 'Nosotros pensamos que hacemos algo grande!!';
+  userName = 'JORGE BRITO';
+  numero = 12345.6789;
+  fechaNacimiento = new Date(2002, 12, 18);
+  costo = 21000.25;
   // COmunicacion de componentes con @Output
   items = new Array();
   items1 = new Array();
@@ -158,6 +243,18 @@ export class AppComponent {
     this.mensaje= "Usted, movio el mouse sobre el parrafo";
     console.log(this.mensaje);
   }
+  // Declaracion para formas reactivas en Angular
+  profileForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('',[ Validators.required, Validators.email])
+  });
+
+  //Creando Servicios Inyectables
+  
+  /*
+    Se coloca en comentario, dado que se ha pasado el servicio como atributo del constructor 
+  */
+  //carService = inject(CarService);
 
     // COmunicacion de componentes con @Output
   addItem(item:string){
@@ -167,4 +264,32 @@ export class AppComponent {
   // Optimizacion de Imagenes
   imgUrl = "img/3.jfif";
   imgAlt = "Imagen paisaje numero 3";
+
+  //Formas Reactivas
+  handleSubmit(){
+    alert( this.profileForm.value.name + " | " + this.profileForm.value.email);
+  }
+
+  mostrar(){
+    if(this.ctrlMostrar){
+    $("#datos").show(3000);
+    $("#btnEnviar").html("Ocultar")
+    this.ctrlMostrar = false;
+  }else{
+    $("#datos").hide(3000);
+    $("#btnEnviar").html("Mostrar")
+    this.ctrlMostrar = true;
+  }
+}
+/*
+  Un metodo constructor es el primer metodo que 
+  se va a ejecutar en la clase. Puede actuar como un inicializador de la misma.
+
+  **constructor(){
+  this.display = this.carService.getCars().join(' ⭐️ ')
+}
+ */
+constructor(private carService:CarService){
+  this.display = this.carService.getCars().join(' ⭐️ ')
+}
 }

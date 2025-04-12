@@ -1,16 +1,96 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, Inject, inject } from '@angular/core';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { UserProfile } from './userprofile.component';
 import { ChildComponent } from "./child.component";
 import { CommentsComponent } from "./comments.component";
 import { NgOptimizedImage } from '@angular/common';
+//import * as $ from 'jquery';
+declare var $: any;
+
+// Creando Servicios Inyectables
+import { CarService } from './car.service';
+
+// Tuberías (Pipe)
+import { UpperCasePipe, LowerCasePipe, DecimalPipe, DatePipe, CurrencyPipe } from '@angular/common';
+
 
 //   templateUrl: './app.component.html',
 @Component({
   selector: 'app-root',
-  imports: [UserProfile, ChildComponent, CommentsComponent, NgOptimizedImage],
+  imports: [UserProfile, ChildComponent, CommentsComponent, NgOptimizedImage, RouterOutlet, RouterLink, ReactiveFormsModule, UpperCasePipe, LowerCasePipe, DecimalPipe, DatePipe, CurrencyPipe],
   template: `
   <div class='container'>
+    <nav>
+      <!--
+      Notación antes de usar RouterLink
+      <a href="/">Inicio</a>
+      |
+      <a href="/user">Usuario</a>
+      -->
+      <!-- Notación de RouterLink -->
+      <a routerLink="/">Inicio</a>
+      |
+      <a routerLink="/user">Usuario</a>
+    </nav>
+    <router-outlet />
+    <hr/>
+    <!--https://www.w3schools.com/bootstrap5/bootstrap_forms.php -->
+    <h2>Formas reactivas en Angular</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
+        <div class="mb-3 mt-3">
+          <label for="name" class="form-label">Nombre:</label>
+          <!--
+          <input type="text" class="form-control" id="name" placeholder="Ingrese nombre" name="name">
+          -->
+          <input type="text" class="form-control" id="name" placeholder="Ingrese nombre" formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico:</label>
+          <!--
+          <input type="email" class="form-control" id="email" placeholder="Ingrese correo electrónico" name="email">
+          -->
+          <input type="email" class="form-control" id="email" placeholder="Ingrese correo electrónico" formControlName="email">
+        </div>
+        <div id="datos">
+          <h2>Datos del formulario con perfil del usuario</h2>
+          <p>Nombre: {{ profileForm.value.name }}</p>
+          <p>Correo Electrónico: {{ profileForm.value.email }}</p>
+        </div>
+        <button id="btnEnviar" type="submit" (click)="mostrar()" class="btn btn-warning" [disabled]="!profileForm.valid">Mostrar</button>
+    </form>
+    <hr/>
+    <h2>Creando un Servicio Inyectable</h2>
+      <div>
+        <label for="">Todos los vehículos</label>
+        <!--
+        Se coloca en comentario dado que se accede al servicio vía 
+        constructor y no inyección.
+        <p>{{ carService.getCars() }}</p>
+        -->
+        <br/>
+        <p>{{ display }} </p>
+      </div>
+      <!--
+      <div> 
+        <label for="">Vehículo número 4</label>
+        <p> {{carService.getCar(3)}}</p>
+      </div>
+      -->
+    <hr/>
+    <div>
+      <h2>Uso de Tuberías (Pipe)</h2>
+      {{ loudMessage | uppercase }}
+      <br/>
+      {{ userName | lowercase }}
+      <br />
+      Número: {{ numero | number:"3.2-2"}}
+      <br />
+      Fecha de Nacimiento: {{ fechaNacimiento | date: 'medium' }}
+      <br />
+      Costo: {{ costo | currency }}
+    </div>
+    
   <h1>CLASE 1 Curso de Angular</h1>
   <p>Ejemplos desarrollados por {{autor}}, hoy es la clase número: {{ 6 + 1 }} 
   <br/>
@@ -130,6 +210,31 @@ export class AppComponent {
   isEditable = true;
   imageURL = 'img/1.jfif';
   mensaje = '';
+  ctrlMostrar = true;
+  // Creando Servicios Inyectables
+  display = '';
+
+  // Uso de Tublerías (Pipe)
+  loudMessage = 'nosotros pensamos que hacemos algo grande!';
+  userName = 'HENRY DUQUE';
+
+  numero = 12345.6789
+  fechaNacimiento = new Date(1968, 11, 18);
+  costo = 21000.25;
+
+
+  // Declaración para formas reactivas en Angular
+  profileForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
+
+  // Creando Servicios Inyectables
+  /**
+   * Se coloca en comentario, dado que se ha pasado el servicio
+   * como atributo del constructor de la clase
+   */
+  //carService = inject(CarService);
 
   // Comunicación de componentes con @Output
   items = new Array();
@@ -156,4 +261,37 @@ export class AppComponent {
   // Optimización de imagenes
   imgUrl = "img/3.jfif";
   imgAlt = "Imagen paisaje número 3";
+
+  // Formas Reactivas
+  handleSubmit(){
+    alert(this.profileForm.value.name + " | " + this.profileForm.value.email);
+  }
+
+  // Uso de jQuery en Angular
+  mostrar(){
+    if (this.ctrlMostrar){
+      $("#datos").show(3000); 
+      $("#btnEnviar").html("Ocultar");
+      this.ctrlMostrar = false;
+    }else{
+      $("#datos").hide(3000); 
+      $("#btnEnviar").html("Mostrar");
+      this.ctrlMostrar = true;
+    }
+  }
+
+  /**
+   * Un método constructor es el primer método que se
+   * va a ejecutar en la clase. Puede actuar como un 
+   * inicializador de la misma.
+   */
+  /*
+  constructor(){
+    this.display = this.carService.getCars().join(' ⭐️ ');
+  }
+  */
+  constructor(private carService:CarService){
+    this.display = this.carService.getCars().join(' ⭐️ ');
+  }
+
 }

@@ -10,3 +10,6 @@ table,th,td{
   border-width: 1px;
   border-color: gray;
 }
+#datos {
+  display: none;
+}

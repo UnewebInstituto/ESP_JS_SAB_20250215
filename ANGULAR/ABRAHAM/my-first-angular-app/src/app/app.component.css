@@ -15,3 +15,6 @@ hr, div{
   margin-top: 20px;
   margin-bottom: 20px;
 }
+#datos{
+  display: none;
+}
