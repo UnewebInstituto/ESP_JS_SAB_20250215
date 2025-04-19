@@ -1,0 +1,421 @@
+REQUISITO ES HABER INSTALADO nodejs
+https://nodejs.org/en
+
+CLIENTE:
+INSTALACIÓN DE ANGULAR
+https://angular.dev/installation#prerequisites
+
+npm install -g @angular/cli
+
+ng new <project-name>
+
+
+
+SERVIDOR:
+INSTALACIÓN DE EXPRESS, PARA EL MANEJO DE NODEJS
+
+CREAR EL DIRECTORIO DEL SERVIDOR
+md servidor 
+cd servidor 
+
+Ejecutar el comando: 
+npm init -y
+
+Se crea el archivo package.json
+
+Ejecutar el comando:
+npm install express cors body-parser
+
+Se crea el archivo app.js 
+
+El servidor se ejecuta con el comando: 
+node app.js 
+
+DEFINICIÓN DE LA BASE DE DATOS (postgresql)
+
+Consola de comandos
+psql
+Interface gráfica
+pgadmin
+
+Acceder a la base de DATOS POSTGRESQL
+
+create database carrito_de_compras_hd;
+
+INSTALACIÓN DE SEQUELIZE (ORM)
+https://es.wikipedia.org/wiki/Mapeo_relacional_de_objetos
+
+https://sequelize.org/
+
+npm install --save sequelize
+
+INSTALACIÓN DEL CONTROLADOR PARA POSTGRESQL 
+
+npm install --save pg pg-hstore
+
+INSTALACIÓN DEL CLI PARA SEQUELIZE (COMMAND LINE INTERFACE)
+npm install --save-dev sequelize-cli
+
+INICIALIZACIÓN DEL CLI PARA SEQUELIZE
+npx sequelize-cli init
+
+En este paso se crean los directorios:
+\config <-- Definir detalles de conexión (config.json)
+\migrations
+\models
+\seeders
+
+SE EJECUTAN LOS COMANDOS PARA CREAR LAS MIGRACIONES 
+NECESARIAS
+npx sequelize-cli migration:generate --name create-usuarios
+npx sequelize-cli migration:generate --name create-productos
+npx sequelize-cli migration:generate --name create-compras
+npx sequelize-cli migration:generate --name create-agregados
+
+UNA VEZ ESTABLECIDAS LAS DEFINICIONES, SE PROCEDE A LAS MIGRACIONES:
+
+npx sequelize-cli db:migrate
+
+REVERTIR MIGRACIÓN
+https://sequelize.org/docs/v6/other-topics/migrations/#undoing-migrations
+
+npx sequelize-cli db:migrate:undo
+
+CREACCIÓN SEMBRADO DE DATOS PARA EL USUARIO ADMINISTRADOR
+npx sequelize-cli seed:generate --name demo-admin
+
+EJECUCIÓN DEL SEMBRADO
+npx sequelize-cli db:seed:all
+
+Funciones de Criptografía en PostgreSQL
+PostgreSQL ofrece un módulo llamado pgcrypto, que proporciona diversas funciones criptográficas para la encriptación y desencriptación de datos. Este módulo es considerado "confiable", lo que significa que puede ser instalado por usuarios que no son superadministradores, siempre que tengan el privilegio de crear objetos en la base de datos actual.
+Métodos de Encriptación
+
+
+Encriptación de Datos: PostgreSQL permite encriptar datos en reposo, asegurando que la información almacenada no sea accesible en caso de robo o acceso no autorizado. Esto es crucial para cumplir con regulaciones de privacidad de datos.
+
+
+Funciones de pgcrypto: Algunas de las funciones más utilizadas en pgcrypto incluyen:
+
+pgp_sym_encrypt(data, key): Encripta datos utilizando una clave simétrica.
+pgp_sym_decrypt(data, key): Desencripta datos que fueron encriptados con una clave simétrica.
+digest(data, type): Calcula el hash de los datos utilizando algoritmos como SHA-256 o MD5.
+
+
+
+Cifrado de Base de Datos: Además de las funciones específicas de pgcrypto, PostgreSQL puede integrarse con plataformas de seguridad de datos, como CipherTrust, para mitigar amenazas y abordar preocupaciones de cumplimiento.
+
+
+Consideraciones de Seguridad
+Es importante tener en cuenta que, aunque PostgreSQL proporciona herramientas para la encriptación, la implementación adecuada de estas funciones es esencial para garantizar la seguridad de los datos. Esto incluye la gestión de claves y la configuración de permisos adecuados para los usuarios que acceden a los datos encriptados.
+En resumen, PostgreSQL, a través de su módulo pgcrypto y otras características de seguridad, ofrece un conjunto robusto de herramientas para la criptografía, permitiendo a los desarrolladores y administradores de bases de datos proteger la información sensible de manera efectiva.
+
+
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Contraseña para usuario postgres:
+psql (17rc1)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# create database carrito_de_compras_hd;
+CREATE DATABASE
+postgres=# \l *carrito*
+                                                                           Listado de base de datos
+        Nombre         |  Due±o   | Codificaci¾n | Proveedor de locale |        Collate         |         Ctype          | Configuraci¾n regional | Reglas ICU: | Privilegios
+-----------------------+----------+--------------+---------------------+------------------------+------------------------+------------------------+-------------+-------------
+ carrito_de_compras_ab | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_eb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_hd | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_jb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_mp | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_pb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+(6 filas)
+
+
+postgres=# \c carrito_de_compras_hd;
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# \d
+              Listado de relaciones
+ Esquema |     Nombre      |   Tipo    |  Due±o
+---------+-----------------+-----------+----------
+ public  | SequelizeMeta   | tabla     | postgres
+ public  | usuarios        | tabla     | postgres
+ public  | usuarios_id_seq | secuencia | postgres
+(3 filas)
+
+
+carrito_de_compras_hd=# \d usuarios
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=# \d SequelizeMeta
+No se encontró relación llamada «SequelizeMeta».
+carrito_de_compras_hd=# \d sequelizemeta
+No se encontró relación llamada «sequelizemeta».
+carrito_de_compras_hd=# \d "SequelizeMeta"
+                       Tabla ½public.SequelizeMeta╗
+ Columna |          Tipo          | Ordenamiento | Nulable  | Por omisi¾n
+---------+------------------------+--------------+----------+-------------
+ name    | character varying(255) |              | not null |
+═ndices:
+    "SequelizeMeta_pkey" PRIMARY KEY, btree (name)
+
+
+carrito_de_compras_hd=# select * from "SequelizeMeta";
+                name
+------------------------------------
+ 20250419142421-create-usuarios.js
+ 20250419142443-create-productos.js
+ 20250419142449-create-compras.js
+ 20250419142457-create-agregados.js
+(4 filas)
+
+
+carrito_de_compras_hd=# select * from "SequelizeMeta";
+                name
+------------------------------------
+ 20250419142421-create-usuarios.js
+ 20250419142443-create-productos.js
+ 20250419142449-create-compras.js
+(3 filas)
+
+
+carrito_de_compras_hd=# \d
+              Listado de relaciones
+ Esquema |     Nombre      |   Tipo    |  Due±o
+---------+-----------------+-----------+----------
+ public  | SequelizeMeta   | tabla     | postgres
+ public  | usuarios        | tabla     | postgres
+ public  | usuarios_id_seq | secuencia | postgres
+(3 filas)
+
+
+carrito_de_compras_hd=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=# \d
+           Listado de relaciones
+ Esquema |    Nombre     | Tipo  |  Due±o
+---------+---------------+-------+----------
+ public  | SequelizeMeta | tabla | postgres
+(1 fila)
+
+
+carrito_de_compras_hd=# select * from "SequelizeMeta";
+ name
+------
+(0 filas)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_ab
+Ahora está conectado a la base de datos «carrito_de_compras_ab» con el usuario «postgres».
+carrito_de_compras_ab=# \d
+           Listado de relaciones
+ Esquema |    Nombre     | Tipo  |  Due±o
+---------+---------------+-------+----------
+ public  | SequelizeMeta | tabla | postgres
+(1 fila)
+
+
+carrito_de_compras_ab=# select * from "SequelizeMeta";
+                name
+------------------------------------
+ 20250419142424-create-usuarios.js
+ 20250419142435-create-productos.js
+ 20250419142446-create-compras.js
+ 20250419142454-create-agregados.js
+(4 filas)
+
+
+carrito_de_compras_ab=# select * from "SequelizeMeta";
+ name
+------
+(0 filas)
+
+
+carrito_de_compras_ab=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# \d
+           Listado de relaciones
+ Esquema |    Nombre     | Tipo  |  Due±o
+---------+---------------+-------+----------
+ public  | SequelizeMeta | tabla | postgres
+(1 fila)
+
+
+carrito_de_compras_hd=# SELECT md5('SECRETO');
+               md5
+----------------------------------
+ c09660c77b9001eba75564781567fadb
+(1 fila)
+
+
+carrito_de_compras_hd=# select * from usuarios;
+ id | cedula | nombre | apellido | correo_electronico | clave | tipo_usuario | createdAt | updatedAt
+----+--------+--------+----------+--------------------+-------+--------------+-----------+-----------
+(0 filas)
+
+
+carrito_de_compras_hd=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |           updatedAt
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-------------------------------
+  1 | V12345678 | ANA    | VASQUEZ  | av@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 11:44:59.796009-04 | 2025-04-19 11:44:59.796009-04
+(1 fila)
+
+
+carrito_de_compras_hd=# select md5('V12345678');
+               md5
+----------------------------------
+ bb58fd8dcab41e78d93c98a3204d438c
+(1 fila)
+
+
+carrito_de_compras_hd=# \d
+           Listado de relaciones
+ Esquema |    Nombre     | Tipo  |  Due±o
+---------+---------------+-------+----------
+ public  | SequelizeMeta | tabla | postgres
+(1 fila)
+
+
+carrito_de_compras_hd=# \d
+               Listado de relaciones
+ Esquema |      Nombre      |   Tipo    |  Due±o
+---------+------------------+-----------+----------
+ public  | SequelizeMeta    | tabla     | postgres
+ public  | agregados        | tabla     | postgres
+ public  | compras          | tabla     | postgres
+ public  | productos        | tabla     | postgres
+ public  | productos_id_seq | secuencia | postgres
+ public  | usuarios         | tabla     | postgres
+ public  | usuarios_id_seq  | secuencia | postgres
+(7 filas)
+
+
+carrito_de_compras_hd=# \d agregados;
+                               Tabla ½public.agregados╗
+   Columna   |           Tipo           | Ordenamiento | Nulable  |    Por omisi¾n
+-------------+--------------------------+--------------+----------+-------------------
+ sesion_id   | character varying(26)    |              | not null |
+ producto_id | integer                  |              | not null |
+ createdAt   | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt   | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+
+
+carrito_de_compras_hd=# \d productos
+                                         Tabla ½public.productos╗
+   Columna   |           Tipo           | Ordenamiento | Nulable  |              Por omisi¾n
+-------------+--------------------------+--------------+----------+---------------------------------------
+ id          | integer                  |              | not null | nextval('productos_id_seq'::regclass)
+ nombre      | character varying(255)   |              | not null |
+ descripcion | text                     |              | not null |
+ precio      | numeric(13,2)            |              | not null |
+ existencia  | integer                  |              | not null |
+ createdAt   | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt   | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "productos_pkey" PRIMARY KEY, btree (id)
+
+
+carrito_de_compras_hd=# \d compras;
+                                Tabla ½public.compras╗
+   Columna   |           Tipo           | Ordenamiento | Nulable  |    Por omisi¾n
+-------------+--------------------------+--------------+----------+-------------------
+ usuario_id  | integer                  |              | not null |
+ producto_id | integer                  |              | not null |
+ cantidad    | integer                  |              | not null |
+ fecha       | timestamp with time zone |              | not null |
+ createdAt   | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt   | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+
+
+carrito_de_compras_hd=# \d usuarios
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=# \d usuarios
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_cedula_key" UNIQUE CONSTRAINT, btree (cedula)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=#
+
+**** CLIENTE ****
+INSTALACIÓN DE ANGULAR
+https://angular.dev/installation#prerequisites
+
+npm install -g @angular/cli
+
+ng new <project-name>
+
+INSTALACIÓN DE BOOTSTRAP
+
+npm install bootstrap
+npm install @popperjs/core
+npm install jquery --save
+
+CONFIGURACIÓN DEL ARCHIVO ANGULAR.JSON
