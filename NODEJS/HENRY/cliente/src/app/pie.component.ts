@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  selector: 'app-pie',
+  templateUrl: './pie.component.html',
+  styleUrl: './pie.component.css'
 })
-export class AppComponent {
-  title = 'cliente';
+export class PieComponent {
+  title = 'pie';
+  mensaje = '';
 }

@@ -81,7 +81,7 @@ https://sequelize.org/docs/v6/other-topics/migrations/#undoing-migrations
 
 npx sequelize-cli db:migrate:undo
 
-CREACCIÓN SEMBRADO DE DATOS PARA EL USUARIO ADMINISTRADOR
+CREACIÓN SEMBRADO DE DATOS PARA EL USUARIO ADMINISTRADOR
 npx sequelize-cli seed:generate --name demo-admin
 
 EJECUCIÓN DEL SEMBRADO
@@ -411,6 +411,7 @@ https://angular.dev/installation#prerequisites
 npm install -g @angular/cli
 
 ng new <project-name>
+
 
 INSTALACIÓN DE BOOTSTRAP
 

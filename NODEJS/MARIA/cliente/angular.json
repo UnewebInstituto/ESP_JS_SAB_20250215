@@ -28,11 +28,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_module/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "node_module/bootstrap/dist/js/bootstrap.min.js",
-              "node_modele/jquery/dist/jquery.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {
@@ -93,15 +93,18 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_module/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "node_module/bootstrap/dist/js/bootstrap.min.js",
-              "node_modele/jquery/dist/jquery.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "5a4e285b-5f61-4dfe-b27b-aaad6eb4b3f0"
   }
 }

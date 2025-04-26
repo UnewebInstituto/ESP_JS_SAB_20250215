@@ -1,0 +1,82 @@
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Contraseña para usuario postgres:
+psql (17rc1)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# \l *carrito*
+                                                                           Listado de base de datos
+        Nombre         |  Due±o   | Codificaci¾n | Proveedor de locale |        Collate         |         Ctype          | Configuraci¾n regional | Reglas ICU: | Privilegios
+-----------------------+----------+--------------+---------------------+------------------------+------------------------+------------------------+-------------+-------------
+ carrito_de_compras_ab | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_eb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_hd | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_jb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_mp | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_pb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+(6 filas)
+
+
+postgres=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# \d
+               Listado de relaciones
+ Esquema |      Nombre      |   Tipo    |  Due±o
+---------+------------------+-----------+----------
+ public  | SequelizeMeta    | tabla     | postgres
+ public  | agregados        | tabla     | postgres
+ public  | compras          | tabla     | postgres
+ public  | productos        | tabla     | postgres
+ public  | productos_id_seq | secuencia | postgres
+ public  | usuarios         | tabla     | postgres
+ public  | usuarios_id_seq  | secuencia | postgres
+(7 filas)
+
+
+carrito_de_compras_hd=#
+
+Documentación del Bootstrap:
+https://getbootstrap.com/docs/5.0/forms/form-control/
+https://getbootstrap.com/docs/5.0/forms/overview/
+
+
+DESINSTALAR BOOTSTRAP:
+npm uninstall bootstrap
+BORRAR DIRECTORIO BOOTSTRAP NODE_MODULES
+
+INSTALAR BOOTSTRAP:
+npm install bootstrap
+
+carrito_de_compras_hd=# \d usuarios
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_cedula_key" UNIQUE CONSTRAINT, btree (cedula)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+carrito_de_compras_hd=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |           updatedAt      
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-------------------------------
+  1 | V12345678 | ANA    | VASQUEZ  | av@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:26:12.606662-04 | 2025-04-19 12:26:12.606662-04
+(1 fila)
+
+
+carrito_de_compras_hd=#

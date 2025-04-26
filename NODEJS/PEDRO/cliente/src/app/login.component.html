@@ -1,0 +1,32 @@
+<div class="centrar">
+  <h3>Iniciar sesión</h3>
+  <a href="">Ir al inicio</a>
+</div>
+
+<form (ngSubmit)="onSubmit()">
+  <div class="row justify-content-center">
+    <div class="mb-3 col-md-4">
+      <label for="exampleInputEmail1" class="form-label">Dirección de correo electrónico:</label>
+      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required [(ngModel)] = 'email'>
+      <div id="emailHelp" class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
+    </div>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="mb-3 col-md-4">
+      <label for="exampleInputPassword1" class="form-label">Clave:</label>
+      <input type="password" class="form-control" id="password" name="password" required [(ngModel)] = 'password'>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+      <div class="mb-3 col-md-4 centrar">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </div>
+
+</form>
+
+<div class="centrar">
+  <a href="">Usuario no registrado</a>
+</div>

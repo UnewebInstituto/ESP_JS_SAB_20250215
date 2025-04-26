@@ -31,7 +31,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/boostrap.bundle.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/jquery/dist/jquery.min.js"
             ]
           },
@@ -71,7 +71,7 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "port": 4206
+            "port": 4205
           }
         },
         "extract-i18n": {
@@ -96,12 +96,15 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/boostrap.bundle.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/jquery/dist/jquery.min.js"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

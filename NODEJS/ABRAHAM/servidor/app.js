@@ -2,7 +2,20 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const sequilize= require('sequelize');
+
+const {Sequelize}= require('sequelize');
+
+//Acceso al modelo de datos conrrespondiente a la tabla usuario
+const Usuario = require('./models/Usuario');
+
+//Referencia para el manejo criptográfico de la clave
+const crypto=require('crypto');
+
+//Función para producir la clave cifrado en el sembrado
+   //Arrow Function
+   const generateMD5 = (texto)=>{
+    return crypto.createHash('md5').update(texto).digest('hex');
+  }
 
 //Instancia de la librerias cargadas
 const app= express();
@@ -17,7 +30,7 @@ app.use(cors());
 app.use(bodyParser.json())
 
 //Conexión a la base de datos PostgreSQL
-const sequelize = new sequilize(
+const sequelize = new Sequelize(
   'carrito_de_compras_ab', 'postgres', '123456', {
     host:'localhost',
     dialect:'postgres',
@@ -28,7 +41,10 @@ const sequelize = new sequilize(
 app.listen(PORT, ()=>{
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 
-  //Comprobar conexión a la base de datos
+})
+
+//Comprobar conexión a la base de datos
+/*
 sequelize.authenticate()
 .then(()=>{
   console.log("Conexión a PostgreSQL establecida con éxito");
@@ -38,7 +54,41 @@ sequelize.authenticate()
 })
 
 })
-
+*/
 app.get("/", (req, res)=>{
   res.send("Hola mundo, dice Abraham!");
+})
+
+app.get("/login", (req, res)=>{
+  res.status(200).json({message: "Por favor enviar una solicitud POST para iniciar sesión"});
+  console.log("Por favor enviar una solicitud POST para iniciar sesión");
+})
+
+app.post("/login",async(req, res)=>{
+  //Se toma del cuerpo de la petición los valores recibidos
+  //Deben tener el mismo nombre que en el request. De lo contrario no funcionará
+  const {emailtmp, passwordtmp}=req.body;
+  console.log(" ");
+  console.log("Valores recibidos desde el cliente Angular");
+  console.log(`Correo electónico: ${emailtmp} Contraseña: ${passwordtmp}`);
+
+  try {
+    //Busqueda del usuario en la base de datos
+    //findOne es el equivalente SQL a: SELECT * FROM usuarios WHERE correo_electronico=emailtmp;
+    const user= await Usuario.findOne({where: {correo_electronico: emailtmp}})
+    //verificación
+    if(user && user.clave === generateMD5(passwordtmp)){
+      res.status(200).json({message: "Login procesado con éxito"});
+      console.log("Login procesado con éxito");
+      console.log(`Nombre: ${user.nombre} Apellido: ${user.apellido}`);
+
+    }
+    else{
+      res.status(401).status.json({message:"Credenciales incorrectas"});
+      console.log("Credenciales incorrectas");
+    }
+  } catch (error) {
+    res.status(500).json({message:"Error en el servidor"});
+    console.log("Error en el servidor"+error);
+  }
 })

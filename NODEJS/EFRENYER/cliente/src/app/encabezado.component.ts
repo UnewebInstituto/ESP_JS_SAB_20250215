@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone:true,
+  selector: 'app-encabezado',
+  imports: [],
+  templateUrl: './encabezado.component.html',
+  styleUrl: './encabezado.component.css'
 })
-export class AppComponent {
-  title = 'cliente';
+export class EncabezadoComponent {
+  title = 'encabezado';
+  nombre= '';
+  apellido= '';
 }
