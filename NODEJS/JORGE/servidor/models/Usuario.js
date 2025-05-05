@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 // Requerido para vincular el modelo con datos fisicos de la tabla (conexión a base de datos)
 const sequelize = require('../database');
 
-const Usuario = sequelize.define('Usuario',{
+const Usuario = sequelize.define('usuarios',{
 id: {
   type: DataTypes.INTEGER,
   primaryKey: true,
@@ -35,9 +35,9 @@ type: DataTypes.STRING(255),
 allowNull: false,
 },
 },{
-  tableName: 'usuario', // Nombre de la tabla en la base de datos
+  tableName: 'usuarios', // Nombre de la tabla en la base de datos
   timestamps: true, // Si se desea que Sequelize maneje createAt y updateAt
-  createdAt: 'createAt', // Nombre del campo createdAt
+  createdAt: 'createdAt', // Nombre del campo createdAt
   updatedAt: 'updatedAt' // Nombre del campo updatedAt
 })
 const syncModel = async () => {

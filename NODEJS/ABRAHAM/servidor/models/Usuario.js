@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 //Requerido para vincular el modelo con datos físicos de la tabla (conexión a base de datos)
 const  sequelize  = require("../database");
 
-const usuarios=sequelize.define("Usuarios", {
+const usuarios=sequelize.define("usuarios", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey:true,
@@ -37,7 +37,7 @@ const usuarios=sequelize.define("Usuarios", {
   },
 },
 {
-  tableName:"usuario",
+  tableName:"usuarios",
   timestamps: true,
   createdAt:"createdAt",
   updatedAt:"updatedAt"

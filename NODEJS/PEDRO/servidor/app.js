@@ -49,24 +49,56 @@ app.post('/login', async(req, res) =>{
     const user = await Usuario.findOne({where: {correo_electronico:emailTmp}});
     //Verificación
     if (user  && user.clave === generateMD5(passwordTmp)){
-      res.status(200).json({message: 'Login fue procesado con éxito.'});
+      res.status(200).json({message: 'Login fue procesado con éxito.', error: ({code:200, detail: 'Login fue procesado con éxito.'})});
       console.log('');
       console.log('Usuario: ' + user.nombre + " " + user.apellido);
       console.log('Tipo usuario: ' + user.tipousuario);
       console.log('Login fue procesado con éxito.');
       console.log('');
     } else {
-      res.status(401).json({message: 'Crendenciales incorrectas.'});
+      res.status(401).json({message: 'Crendenciales incorrectas.', error: ({code:401, detail: 'Crendenciales incorrectas.'})});
       console.log('');
       console.log('Crendenciales incorrectas.');
       console.log('');
     }
   } catch (error) {
-    res.status(500).json({message: 'Error en el servidor.'});
+    res.status(500).json({message: 'Error en el servidor.', error: ({code:500, detail: 'Error en el servidor.'})});
     console.log('');
       console.log('Error en el servidor. ' + error);
       console.log('');
   }  
+})
+
+app.post('/usuario', async (req, res)=>{
+  //Creación de nuevos usuarios  
+  const { cedula, nombre, apellido, correo_electronico, clave, tipo_usuario } = req.body;
+  try {
+    //Verificar a traves del correo electrónico, si el usuario se encuentra registrado
+    //ORM Sequelize
+    const usuarioExiste = await Usuario.findOne({where:{correo_electronico}})
+    if (usuarioExiste){
+      //Se dvuelve al cliente con el mensaje de error
+      res.status(401).json({message: 'El correo eletrónico ya se encuentra registrado.', error: ({code:401, detail: 'El correo eletrónico ya se encuentra registrado.'})});
+      console.log('El correo eletrónico ya se encuentra registrado.')
+    } 
+    
+    // El correo electrónico no existe, puede crear el nuevo usuario
+    const nuevoUsuario = await Usuario.create({
+      cedula,
+      nombre, 
+      apellido,
+      correo_electronico,
+      clave: generateMD5(clave),
+      tipo_usuario
+    });
+
+    res.status(200).json({message: 'Nuevo usuario fue registrado de forma satisfactoria.', error: ({code:200, detail: 'Nuevo usuario fue registrado de forma satisfactoria.'})});
+    console.log('Nuevo usuario fue registrado de forma satisfactoria.');
+    
+  } catch (error) {
+    res.status(500).json({message: 'Error en el servidor.', error: ({code:500, detail: 'Error en el servidor.'})});
+    console.log('Error en el servidor.');
+  }
 })
 
 app.listen(PORT, () =>{

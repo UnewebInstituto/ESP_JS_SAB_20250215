@@ -1,0 +1,41 @@
+<div class="centrar">
+  <h3>Registro de usuario</h3>
+  <a href="http://">Ir al incio</a>
+</div>
+<form (ngSubmit)="onSubmit()">
+  <div class="mb-3 mt-3">
+    <label for="cedula" class="form-label">Cédula de identidad:</label>
+
+    <input type="text" class="form-control" id="cedula" name="cedula" required [(ngModel)] = "cedula">
+  </div>
+
+  <div class="mb-3 mt-3">
+    <label for="nombre" class="form-label">Nombre:</label>
+
+    <input type="text" class="form-control" id="nombre" name="nombre" required [(ngModel)] = "nombre">
+  </div>
+
+  <div class="mb-3 mt-3">
+    <label for="apellido" class="form-label">Apellido:</label>
+
+    <input type="text" class="form-control" id="apellido" name="apellido" required [(ngModel)] = "apellido">
+  </div>
+
+  <div class="mb-3 mt-3">
+    <label for="correo_electronico" class="form-label">Correo electrónico:</label>
+
+    <input type="email" class="form-control" id="apellido" name="correo_electronico" required [(ngModel)] = "correo_electronico">
+  </div>
+
+  <div class="mb-3 mt-3">
+    <label for="clave" class="form-label">Clave:</label>
+
+    <input type="password" class="form-control" id="clave" name="correo_electronico" required [(ngModel)] = "clave">
+    <!-- Campo oculto para definir todo nuevo usuario como VISITANTE -->
+    <input type="hidden" name="tipo_usuario" value="VISITANTE" [(ngModel)] = "tipo_usuario">
+  </div>
+
+    <div class="mb-3 mt-3 centrar">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+</form>

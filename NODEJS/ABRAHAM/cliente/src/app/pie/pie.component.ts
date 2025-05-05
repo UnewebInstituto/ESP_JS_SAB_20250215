@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MensajeService } from '../mensaje.service';
 
 @Component({
   standalone:true,
@@ -9,5 +10,21 @@ import { Component } from '@angular/core';
 })
 export class PieComponenet {
   title="pie";
-  mensaje="";
+  mensaje:string="";
+  codigo:number=0;
+
+  constructor(private mensajeService:MensajeService){
+
+  }
+
+  ngOnInit(){
+    // this.mensajeService.currentMessage.subscribe(mensaje=>{
+    //   this.mensaje=mensaje
+    // })
+
+    this.mensajeService.currentMessage.subscribe(data=>{
+      this.codigo=data.codigo;
+      this.mensaje=data.mensaje;
+    })
+  }
 }

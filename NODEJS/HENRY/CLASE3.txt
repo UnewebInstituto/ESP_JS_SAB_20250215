@@ -1,0 +1,1114 @@
+alter table usuarios add column updatedAt timestamp with time zone default 
+CURRENT_TIMESTAMP;
+
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Contraseña para usuario postgres:
+psql (17rc1)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# \l carri*
+                                                                           Listado de base de datos
+        Nombre         |  Due±o   | Codificaci¾n | Proveedor de locale |        Collate         |         Ctype          | Configuraci¾n regional | Reglas ICU: | Privilegios
+-----------------------+----------+--------------+---------------------+------------------------+------------------------+------------------------+-------------+-------------
+ carrito_de_compras_ab | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_eb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_hd | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_jb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_mp | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_pb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+(6 filas)
+
+
+postgres=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |           updatedAt      
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-------------------------------
+  1 | V12345678 | ANA    | VASQUEZ  | av@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:26:12.606662-04 | 2025-04-19 12:26:12.606662-04
+(1 fila)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_JP
+falló la conexión al servidor en «localhost» (::1), puerto 5432: FATAL:  no existe la base de datos «carrito_de_compras_JP»
+Se ha mantenido la conexión anterior
+carrito_de_compras_hd=# \c carrito_de_compras_jp
+falló la conexión al servidor en «localhost» (::1), puerto 5432: FATAL:  no existe la base de datos «carrito_de_compras_jp»
+Se ha mantenido la conexión anterior
+carrito_de_compras_hd=# \c carrito_de_compras_mp
+Ahora está conectado a la base de datos «carrito_de_compras_mp» con el usuario «postgres».
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_cedula_key" UNIQUE CONSTRAINT, btree (cedula)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_mp
+Ahora está conectado a la base de datos «carrito_de_compras_mp» con el usuario «postgres».
+carrito_de_compras_mp=# alter table usuarios add column updatedAt timestamp with time zone default CURRENT_TIMESTAMP;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedat          | timestamp with time zone |              |          | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |          updatedat       
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-----------------------------
+  1 | V12345678 | Maria  | Pena     | mp@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 11:53:44.22819-04  | 2025-05-03 08:25:11.7172-04
+  3 | V12345678 | Maria  | Pena     | mpr@gmail.com      | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:28:58.181829-04 | 2025-05-03 08:25:11.7172-04
+(2 filas)
+
+
+carrito_de_compras_mp=#
+
+
+BORRAR LA Columna
+
+alter table usuarios drop column updatedat;
+
+alter table usuarios add column "updatedAt" timestamp with time zone default CURRENT_TIMESTAMP NOT NULL;
+
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Contraseña para usuario postgres:
+psql (17rc1)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# \l carri*
+                                                                           Listado de base de datos
+        Nombre         |  Due±o   | Codificaci¾n | Proveedor de locale |        Collate         |         Ctype          | Configuraci¾n regional | Reglas ICU: | Privilegios
+-----------------------+----------+--------------+---------------------+------------------------+------------------------+------------------------+-------------+-------------
+ carrito_de_compras_ab | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_eb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_hd | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_jb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_mp | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_pb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+(6 filas)
+
+
+postgres=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |           updatedAt      
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-------------------------------
+  1 | V12345678 | ANA    | VASQUEZ  | av@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:26:12.606662-04 | 2025-04-19 12:26:12.606662-04
+(1 fila)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_JP
+falló la conexión al servidor en «localhost» (::1), puerto 5432: FATAL:  no existe la base de datos «carrito_de_compras_JP»
+Se ha mantenido la conexión anterior
+carrito_de_compras_hd=# \c carrito_de_compras_jp
+falló la conexión al servidor en «localhost» (::1), puerto 5432: FATAL:  no existe la base de datos «carrito_de_compras_jp»
+Se ha mantenido la conexión anterior
+carrito_de_compras_hd=# \c carrito_de_compras_mp
+Ahora está conectado a la base de datos «carrito_de_compras_mp» con el usuario «postgres».
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_cedula_key" UNIQUE CONSTRAINT, btree (cedula)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_mp
+Ahora está conectado a la base de datos «carrito_de_compras_mp» con el usuario «postgres».
+carrito_de_compras_mp=# alter table usuarios add column updatedAt timestamp with time zone default CURRENT_TIMESTAMP;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedat          | timestamp with time zone |              |          | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |          updatedat       
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-----------------------------
+  1 | V12345678 | Maria  | Pena     | mp@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 11:53:44.22819-04  | 2025-05-03 08:25:11.7172-04
+  3 | V12345678 | Maria  | Pena     | mpr@gmail.com      | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:28:58.181829-04 | 2025-05-03 08:25:11.7172-04
+(2 filas)
+
+
+carrito_de_compras_mp=# alter table usuarios drop column updatedat;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# alter table usuarios add column "updatedAt" timestamp with time zone default CURRENT_TIMESTAMP NOT NULL;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=#
+
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Contraseña para usuario postgres:
+psql (17rc1)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# \l carri*
+                                                                           Listado de base de datos
+        Nombre         |  Due±o   | Codificaci¾n | Proveedor de locale |        Collate         |         Ctype          | Configuraci¾n regional | Reglas ICU: | Privilegios
+-----------------------+----------+--------------+---------------------+------------------------+------------------------+------------------------+-------------+-------------
+ carrito_de_compras_ab | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_eb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_hd | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_jb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_mp | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+ carrito_de_compras_pb | postgres | UTF8         | libc                | Spanish_Venezuela.1252 | Spanish_Venezuela.1252 |                        |             |
+(6 filas)
+
+
+postgres=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |           updatedAt      
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-------------------------------
+  1 | V12345678 | ANA    | VASQUEZ  | av@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:26:12.606662-04 | 2025-04-19 12:26:12.606662-04
+(1 fila)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_JP
+falló la conexión al servidor en «localhost» (::1), puerto 5432: FATAL:  no existe la base de datos «carrito_de_compras_JP»
+Se ha mantenido la conexión anterior
+carrito_de_compras_hd=# \c carrito_de_compras_jp
+falló la conexión al servidor en «localhost» (::1), puerto 5432: FATAL:  no existe la base de datos «carrito_de_compras_jp»
+Se ha mantenido la conexión anterior
+carrito_de_compras_hd=# \c carrito_de_compras_mp
+Ahora está conectado a la base de datos «carrito_de_compras_mp» con el usuario «postgres».
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# \c carrito_de_compras_hd
+Ahora está conectado a la base de datos «carrito_de_compras_hd» con el usuario «postgres».
+carrito_de_compras_hd=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_cedula_key" UNIQUE CONSTRAINT, btree (cedula)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_hd=# \c carrito_de_compras_mp
+Ahora está conectado a la base de datos «carrito_de_compras_mp» con el usuario «postgres».
+carrito_de_compras_mp=# alter table usuarios add column updatedAt timestamp with time zone default CURRENT_TIMESTAMP;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedat          | timestamp with time zone |              |          | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# select * from usuarios;
+ id |  cedula   | nombre | apellido | correo_electronico |              clave               | tipo_usuario  |           createdAt           |          updatedat       
+----+-----------+--------+----------+--------------------+----------------------------------+---------------+-------------------------------+-----------------------------
+  1 | V12345678 | Maria  | Pena     | mp@gmail.com       | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 11:53:44.22819-04  | 2025-05-03 08:25:11.7172-04
+  3 | V12345678 | Maria  | Pena     | mpr@gmail.com      | bb58fd8dcab41e78d93c98a3204d438c | ADMINISTRADOR | 2025-04-19 12:28:58.181829-04 | 2025-05-03 08:25:11.7172-04
+(2 filas)
+
+
+carrito_de_compras_mp=# alter table usuarios drop column updatedat;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=# alter table usuarios add column "updatedAt" timestamp with time zone default CURRENT_TIMESTAMP NOT NULL;
+ALTER TABLE
+carrito_de_compras_mp=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              |          |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_pkey" PRIMARY KEY, btree (id)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_mp=#
+carrito_de_compras_mp=#
+carrito_de_compras_mp=# \c carrito_de_compras_jb
+Ahora está conectado a la base de datos «carrito_de_compras_jb» con el usuario «postgres».
+carrito_de_compras_jb=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAT          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_clave_key" UNIQUE CONSTRAINT, btree (clave)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_jb=# alter table usuarios drop column "updatedAT";
+ALTER TABLE
+carrito_de_compras_jb=# alter table usuarios add column "updatedAt" timestamp with time zone default CURRENT_TIMESTAMP NOT NULL;
+ALTER TABLE
+carrito_de_compras_jb=# \d usuarios;
+                                            Tabla ½public.usuarios╗
+      Columna       |           Tipo           | Ordenamiento | Nulable  |             Por omisi¾n
+--------------------+--------------------------+--------------+----------+--------------------------------------
+ id                 | integer                  |              | not null | nextval('usuarios_id_seq'::regclass)
+ cedula             | character varying(255)   |              | not null |
+ nombre             | character varying(255)   |              | not null |
+ apellido           | character varying(255)   |              | not null |
+ correo_electronico | character varying(255)   |              | not null |
+ clave              | character varying(32)    |              | not null |
+ tipo_usuario       | character varying(255)   |              | not null |
+ createdAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+ updatedAt          | timestamp with time zone |              | not null | CURRENT_TIMESTAMP
+═ndices:
+    "usuarios_clave_key" UNIQUE CONSTRAINT, btree (clave)
+    "usuarios_correo_electronico_key" UNIQUE CONSTRAINT, btree (correo_electronico)
+
+
+carrito_de_compras_jb=#
+
+
+https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto
+
+
+MENSAJERÍA
+Para enviar un mensaje desde el componente LoginComponent al componente PieComponent en Angular, puedes utilizar un servicio compartido. Este enfoque permite que ambos componentes se comuniquen sin necesidad de que uno dependa directamente del otro. A continuación, te muestro cómo hacerlo paso a paso.
+Paso 1: Crear un Servicio Compartido
+Primero, crea un servicio que manejará el mensaje. Puedes llamarlo MensajeService.
+
+ng generate service mensaje
+
+RESULTADO DEL COMANDO
+
+C:\ESP_JS_SAB_20250215\NODEJS\HENRY\cliente>ng generate service mensaje    
+CREATE src/app/mensaje.service.spec.ts (378 bytes)
+CREATE src/app/mensaje.service.ts (145 bytes)
+
+C:\ESP_JS_SAB_20250215\NODEJS\HENRY\cliente>
+
+
+Cómo instalar Bootstrap en un proyecto Angular
+Para instalar Bootstrap en un proyecto Angular, puedes seguir estos pasos:
+
+
+Crear un nuevo proyecto Angular (si aún no lo has hecho):
+Si no tienes un proyecto Angular existente, puedes crear uno nuevo utilizando Angular CLI. Abre tu terminal y ejecuta:
+ng new mi-proyecto
+cd mi-proyecto
+
+
+
+Instalar Bootstrap:
+Puedes instalar Bootstrap utilizando npm. Ejecuta el siguiente comando en la raíz de tu proyecto:
+npm install bootstrap
+
+
+
+Agregar Bootstrap a tu proyecto:
+Después de instalar Bootstrap, necesitas incluirlo en tu proyecto. Abre el archivo angular.json y busca la sección styles. Agrega la ruta al archivo CSS de Bootstrap. Debería verse algo así:
+"styles": [
+    "src/styles.css",
+    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+Asegúrate de que la ruta esté correctamente especificada.
+
+
+Usar Bootstrap en tus componentes:
+Ahora puedes utilizar las clases de Bootstrap en tus componentes Angular. Por ejemplo, en tu archivo de plantilla HTML (como app.component.html), puedes agregar un botón de Bootstrap:
+<button class="btn btn-primary">Botón de Bootstrap</button>
+
+
+
+Verificar la instalación:
+Inicia tu aplicación Angular para verificar que Bootstrap se haya instalado correctamente. Ejecuta el siguiente comando en la terminal:
+ng serve
+
+Luego, abre tu navegador y navega a http://localhost:4200. Deberías ver tu aplicación Angular con los estilos de Bootstrap aplicados.
+
+
+Consideraciones adicionales
+
+Personalización: Si deseas personalizar Bootstrap, puedes crear un archivo SCSS y configurar tus variables antes de importar Bootstrap.
+JavaScript de Bootstrap: Si necesitas utilizar componentes de Bootstrap que requieren JavaScript (como modales o dropdowns), también puedes instalar @popperjs/core y bootstrap para que funcionen correctamente. Puedes hacerlo con:
+npm install @popperjs/core
+
+
+
+Con estos pasos, habrás integrado Bootstrap en tu proyecto Angular y podrás aprovechar sus componentes y estilos para mejorar la interfaz de usuario de tu aplicación. Si tienes más preguntas o necesitas más detalles, ¡no dudes en preguntar!
+
+
+
+Consideraciones para instalar el JavaScript de Bootstrap en Angular
+Al integrar el JavaScript de Bootstrap en un proyecto Angular, hay varias consideraciones importantes que debes tener en cuenta:
+
+
+Compatibilidad con Angular: Bootstrap utiliza jQuery y Popper.js para algunos de sus componentes interactivos. Sin embargo, Angular no es compatible con jQuery de manera nativa, por lo que es recomendable utilizar una biblioteca que adapte Bootstrap a Angular, como @ng-bootstrap/ng-bootstrap. Esta biblioteca proporciona componentes de Bootstrap que funcionan sin jQuery y están diseñados específicamente para Angular.
+
+
+Instalación de dependencias: Si decides usar los componentes de Bootstrap que requieren JavaScript, asegúrate de instalar @popperjs/core y bootstrap. Puedes hacerlo ejecutando:
+npm install bootstrap @popperjs/core
+
+
+
+Configuración de Angular.json: Después de instalar Bootstrap, debes agregar el archivo JavaScript de Bootstrap a tu archivo angular.json. Esto se hace en la sección scripts para asegurarte de que el JavaScript se cargue correctamente. Por ejemplo:
+"scripts": [
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+],
+
+
+
+Uso de componentes: Al utilizar componentes de Bootstrap que requieren JavaScript (como modales, dropdowns, tooltips, etc.), asegúrate de seguir las directrices de la documentación de Bootstrap y de @ng-bootstrap/ng-bootstrap para implementarlos correctamente en tus componentes Angular.
+
+
+Estilos y personalización: Si deseas personalizar los estilos de Bootstrap, considera crear un archivo SCSS y configurar tus variables antes de importar Bootstrap. Esto te permitirá adaptar el diseño a las necesidades de tu aplicación.
+
+
+Pruebas y rendimiento: Después de integrar Bootstrap, realiza pruebas exhaustivas para asegurarte de que todos los componentes funcionen como se espera. También verifica el rendimiento de tu aplicación, ya que la inclusión de bibliotecas adicionales puede afectar la carga y la velocidad.
+
+
+Documentación: Consulta la documentación oficial de Bootstrap y de @ng-bootstrap/ng-bootstrap para obtener información detallada sobre cómo utilizar los componentes y resolver problemas comunes.
+
+
+Siguiendo estas consideraciones, podrás integrar Bootstrap de manera efectiva en tu proyecto Angular, aprovechando sus componentes y estilos para mejorar la interfaz de usuario de tu aplicación. Si tienes más preguntas o necesitas más detalles, ¡no dudes en preguntar!
+
+
+
+Cómo instalar jQuery en un proyecto Angular
+Para instalar jQuery en un proyecto Angular, puedes seguir estos pasos:
+
+
+Instalar jQuery: Abre tu terminal y navega a la raíz de tu proyecto Angular. Luego, ejecuta el siguiente comando para instalar jQuery:
+npm install jquery --save
+
+
+
+Instalar tipos de jQuery (opcional): Si estás utilizando TypeScript, es recomendable instalar los tipos de jQuery para obtener autocompletado y verificación de tipos. Ejecuta el siguiente comando:
+npm install @types/jquery --save-dev
+
+
+
+Agregar jQuery a tu proyecto: Después de instalar jQuery, necesitas incluirlo en tu proyecto. Abre el archivo angular.json y busca la sección scripts. Agrega la ruta al archivo jQuery en esta sección. Debería verse algo así:
+"scripts": [
+    "node_modules/jquery/dist/jquery.min.js"
+],
+
+
+
+Usar jQuery en tus componentes: Ahora puedes usar jQuery en tus componentes Angular. Por ejemplo, en un componente, puedes importar jQuery y usarlo de la siguiente manera:
+import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+
+@Component({
+    selector: 'app-mi-componente',
+    templateUrl: './mi-componente.component.html',
+    styleUrls: ['./mi-componente.component.css']
+})
+export class MiComponente implements OnInit {
+    ngOnInit() {
+        // Usar jQuery para manipular el DOM
+        $('#miElemento').hide(); // Ejemplo de uso
+    }
+}
+
+
+
+Verificar la instalación: Inicia tu aplicación Angular para asegurarte de que jQuery se haya instalado correctamente. Ejecuta el siguiente comando en la terminal:
+ng serve
+
+Luego, abre tu navegador y navega a http://localhost:4200 para verificar que todo funcione como se espera.
+
+
+Consideraciones
+
+Uso de jQuery en Angular: Aunque es posible usar jQuery en Angular, se recomienda utilizar las herramientas y métodos nativos de Angular siempre que sea posible. Angular está diseñado para trabajar con su propio sistema de manipulación del DOM y puede haber problemas de rendimiento o conflictos si se mezcla con jQuery.
+Manejo de dependencias: Asegúrate de que las versiones de jQuery y Angular sean compatibles y de que no haya conflictos con otras bibliotecas que estés utilizando.
+
+Siguiendo estos pasos, podrás integrar jQuery en tu proyecto Angular y utilizarlo según sea necesario. Si tienes más preguntas o necesitas más detalles, ¡no dudes en preguntar!
+
+
+*** ACTUALIZACIÓN ****
+Para adaptar tu código y crear una función llamada validarLogin() que envíe el correo y la clave mediante un método POST a un servidor Node.js en la ruta /login, sigue estos pasos:
+Paso 1: Crear el servicio para manejar la solicitud HTTP
+Primero, asegúrate de tener el módulo HttpClientModule importado en tu módulo principal (por ejemplo, app.module.ts):
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    // tus componentes
+  ],
+  imports: [
+    // otros módulos
+    HttpClientModule,
+    FormsModule // Asegúrate de importar FormsModule también
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+Luego, crea un servicio para manejar la autenticación. Por ejemplo, auth.service.ts:
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private apiUrl = 'http://localhost:3000/login'; // Cambia esto si es necesario
+
+  constructor(private http: HttpClient) { }
+
+  validarLogin(correo: string, clave: string): Observable<any> {
+    return this.http.post(this.apiUrl, { correo, clave });
+  }
+}
+
+Paso 2: Implementar la función validarLogin() en tu componente
+Ahora, en tu componente LoginComponent, puedes implementar la función validarLogin():
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service'; // Asegúrate de que la ruta sea correcta
+
+@Component({
+  selector: 'login-root',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+  title = 'login';
+  correo = '';
+  clave = '';
+
+  constructor(private authService: AuthService) { }
+
+  validarLogin() {
+    this.authService.validarLogin(this.correo, this.clave).subscribe(
+      response => {
+        console.log('Inicio de sesión exitoso:', response);
+        // Aquí puedes manejar la respuesta, como redirigir al usuario
+      },
+      error => {
+        console.error('Error en el inicio de sesión:', error);
+        // Aquí puedes manejar el error, como mostrar un mensaje al usuario
+      }
+    );
+  }
+}
+
+Paso 3: Modificar el HTML para llamar a validarLogin()
+Asegúrate de que tu formulario llame a la función validarLogin() cuando se envíe. Aquí tienes un ejemplo de cómo podría verse tu archivo HTML:
+<div style="text-align: center;">
+  <h3>Iniciar sesión</h3>
+  <form (ngSubmit)="validarLogin()">
+    <div class="mb-3">
+      <label for="correo" class="form-label">Dirección de correo electrónico</label>
+      <input type="email" class="form-control" id="correo" [(ngModel)]="correo" name="correo" required>
+    </div>
+    <div class="mb-3">
+      <label for="clave" class="form-label">Clave</label>
+      <input type="password" class="form-control" id="clave" [(ngModel)]="clave" name="clave" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+  <div>
+    <a href="">Usuario no registrado</a>
+  </div>
+</div>
+
+Paso 4: Configurar el servidor Node.js para manejar la ruta /login
+Asegúrate de que tu servidor Node.js tenga la ruta /login configurada para manejar la solicitud POST. Aquí tienes un ejemplo de cómo hacerlo:
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 3000;
+
+// Middleware para parsear el cuerpo de las solicitudes
+app.use(bodyParser.json());
+
+app.post('/login', (req, res) => {
+    const { correo, clave } = req.body;
+    // Aquí puedes agregar la lógica para validar el correo y la clave
+    console.log('Correo:', correo);
+    console.log('Clave:', clave);
+    
+    // Simulación de validación
+    if (correo === 'test@example.com' && clave === '123456') {
+        return res.status(200).json({ message: 'Inicio de sesión exitoso' });
+    } else {
+        return res.status(401).json({ message: 'Credenciales inválidas' });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+
+Resumen
+
+Servicio de autenticación: Crea un servicio que maneje la solicitud POST a la ruta /login.
+Función validarLogin(): Implementa la función en tu componente para enviar el correo y la clave al servidor.
+Formulario: Asegúrate de que el formulario llame a validarLogin() al enviarse.
+Servidor Node.js: Configura la ruta /login en tu servidor para manejar la validación.
+
+Con estos pasos, tu aplicación Angular podrá enviar el correo y la clave al servidor Node.js para su validación. Si tienes más preguntas o necesitas más detalles, ¡no dudes en preguntar!
+
+
+Pasos para Comunicar Angular con Node.js
+Para establecer una comunicación efectiva entre una aplicación Angular y un backend en Node.js, puedes seguir estos pasos:
+1. Configurar el Backend en Node.js
+
+
+Instalar Dependencias: Asegúrate de tener Node.js y npm instalados. Luego, crea un nuevo proyecto y añade las dependencias necesarias, como express y cors para manejar las solicitudes HTTP y las políticas de CORS.
+mkdir mi-proyecto-backend
+cd mi-proyecto-backend
+npm init -y
+npm install express cors body-parser
+
+
+npm install cors body-parser
+
+
+Crear el Servidor: Configura un servidor básico utilizando Express. Aquí tienes un ejemplo de cómo hacerlo:
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = 3000;
+
+app.use(cors()); // Permitir solicitudes CORS
+app.use(bodyParser.json()); // Parsear JSON
+
+app.post('/login', (req, res) => {
+    const { correo, clave } = req.body;
+    // Lógica de autenticación aquí
+    res.json({ message: 'Inicio de sesión exitoso' });
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+
+
+
+2. Configurar el Frontend en Angular
+
+
+Crear un Nuevo Proyecto Angular: Utiliza Angular CLI para crear un nuevo proyecto.
+ng new mi-proyecto-frontend
+cd mi-proyecto-frontend
+
+
+
+Instalar HttpClientModule: Asegúrate de que HttpClientModule esté importado en tu módulo principal o en el componente donde lo necesites.
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  imports: [
+    HttpClientModule,
+    // otros módulos
+  ],
+  // ...
+})
+export class AppModule { }
+
+
+
+3. Crear un Servicio para la Comunicación
+
+
+Crear un Servicio: Genera un servicio que maneje las solicitudes HTTP hacia el backend.
+ng generate service auth
+
+
+
+Implementar el Servicio: Aquí tienes un ejemplo de cómo podría verse tu servicio AuthService:
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private apiUrl = 'http://localhost:3000/login';
+
+  constructor(private http: HttpClient) { }
+
+  validarLogin(correo: string, clave: string): Observable<any> {
+    return this.http.post(this.apiUrl, { correo, clave });
+  }
+}
+
+
+
+4. Utilizar el Servicio en un Componente
+
+
+Inyectar el Servicio: En el componente donde deseas utilizar el servicio, inyecta AuthService y llama al método para realizar la solicitud.
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+  correo = '';
+  clave = '';
+
+  constructor(private authService: AuthService) { }
+
+  validarLogin() {
+    this.authService.validarLogin(this.correo, this.clave).subscribe(
+      response => {
+        console.log('Inicio de sesión exitoso:', response);
+      },
+      error => {
+        console.error('Error en el inicio de sesión:', error);
+      }
+    );
+  }
+}
+
+
+
+5. Probar la Aplicación
+
+
+Ejecutar el Servidor: Asegúrate de que tu servidor Node.js esté corriendo.
+node index.js
+
+
+
+Ejecutar la Aplicación Angular: Inicia tu aplicación Angular.
+ng serve
+
+
+
+Probar la Comunicación: Accede a tu aplicación Angular en el navegador y prueba la funcionalidad de inicio de sesión.
+
+
+Conclusión
+Siguiendo estos pasos, podrás establecer una comunicación efectiva entre tu aplicación Angular y tu backend en Node.js. Asegúrate de manejar adecuadamente los errores y las respuestas en ambas partes para mejorar la experiencia del usuario. ¡Buena suerte con tu desarrollo!
+
+
+MENSAJERÍA
+Para enviar un mensaje desde el componente LoginComponent al componente PieComponent en Angular, puedes utilizar un servicio compartido. Este enfoque permite que ambos componentes se comuniquen sin necesidad de que uno dependa directamente del otro. A continuación, te muestro cómo hacerlo paso a paso.
+Paso 1: Crear un Servicio Compartido
+Primero, crea un servicio que manejará el mensaje. Puedes llamarlo MensajeService.
+
+ng generate service mensaje
+
+Esto generará dos archivos: mensaje.service.ts y mensaje.service.spec.ts. Abre el archivo mensaje.service.ts y modifícalo de la siguiente manera:
+// mensaje.service.ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MensajeService {
+  private mensajeSource = new BehaviorSubject<string>('');
+  currentMensaje = this.mensajeSource.asObservable();
+
+  constructor() {}
+
+  cambiarMensaje(mensaje: string) {
+    this.mensajeSource.next(mensaje);
+  }
+}
+
+Paso 2: Modificar el Componente LoginComponent
+Ahora, inyecta el servicio MensajeService en el LoginComponent y utiliza el método cambiarMensaje para enviar el mensaje al PieComponent.
+// login.component.ts
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MensajeService } from './mensaje.service'; // Importa el servicio
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+})
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+
+  constructor(private http: HttpClient, private mensajeService: MensajeService) {}
+
+  onSubmit() {
+    const user = { emailTmp: this.email, passwordTmp: this.password };
+    this.http.post('http://localhost:3000/login', user)
+      .subscribe(response => {
+        console.log('Login exitoso', response);
+        this.mensajeService.cambiarMensaje('Login exitoso'); // Envía el mensaje al servicio
+      }, error => {
+        console.error('Error en el login', error);
+        alert('Error: ' + error.error.message);
+        this.mensajeService.cambiarMensaje(error.error.message); // Envía el mensaje de error al servicio
+      });
+  }
+}
+
+Paso 3: Modificar el Componente PieComponent
+Finalmente, inyecta el servicio MensajeService en el PieComponent y suscríbete a currentMensaje para recibir el mensaje.
+// pie.component.ts
+import { Component, OnInit } from '@angular/core';
+import { MensajeService } from './mensaje.service'; // Importa el servicio
+
+@Component({
+  standalone: true,
+  selector: 'app-pie',
+  templateUrl: './pie.component.html',
+  styleUrls: ['./pie.component.css']
+})
+export class PieComponent implements OnInit {
+  mensaje: string = '';
+
+  constructor(private mensajeService: MensajeService) {}
+
+  ngOnInit() {
+    this.mensajeService.currentMensaje.subscribe(mensaje => {
+      this.mensaje = mensaje; // Actualiza el mensaje cuando cambia
+    });
+  }
+}
+
+Paso 4: Mostrar el Mensaje en el Template de PieComponent
+Asegúrate de que el template de PieComponent muestre el mensaje:
+<!-- pie.component.html -->
+<div>
+  <p>{{ mensaje }}</p>
+</div>
+
+Resumen
+
+Crear un Servicio Compartido: Se creó MensajeService que utiliza BehaviorSubject para manejar el mensaje.
+Modificar LoginComponent: Se inyectó el servicio y se utilizó para enviar mensajes de éxito o error.
+Modificar PieComponent: Se inyectó el servicio y se suscribió a los cambios en el mensaje para actualizar la vista.
+
+Con estos pasos, ahora puedes enviar mensajes desde LoginComponent a PieComponent de manera efectiva. Si tienes más preguntas o necesitas más ayuda, ¡no dudes en preguntar!
+
+Aquí tienes ejemplos prácticos de cómo personalizar el objeto JSON en una respuesta HTTP, incluyendo atributos como `status`, `data` y `errors`, dependiendo del caso de uso:
+
+---
+
+### 1. **Caso exitoso (Incluyendo `status` y `data`)**
+Cuando una solicitud se procesa correctamente y se requiere enviar información adicional en la respuesta.
+
+```javascript name=success-example.js
+res.status(200).json({
+  status: 'success',
+  message: 'Login fue procesado con éxito.',
+  data: {
+    userId: 12345,
+    username: 'juanperez',
+    role: 'admin',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' // Token JWT o similar
+  }
+});
+```
+
+### Explicación:
+- **`status`**: Indica que la operación fue exitosa (`success`).
+- **`data`**: Contiene detalles específicos del resultado, como información del usuario autenticado o cualquier otro dato relevante.
+
+---
+
+### 2. **Caso de error (Incluyendo `status` y `errors`)**
+Cuando ocurre un error (por ejemplo, credenciales inválidas).
+
+```javascript name=error-example.js
+res.status(401).json({
+  status: 'error',
+  message: 'Credenciales inválidas.',
+  errors: {
+    code: 'INVALID_CREDENTIALS',
+    details: 'El nombre de usuario o contraseña ingresados son incorrectos.'
+  }
+});
+```
+
+### Explicación:
+- **`status`**: Indica que ocurrió un error (`error`).
+- **`errors`**: Proporciona detalles adicionales sobre el error, como un código de error (`code`) y una descripción más detallada (`details`).
+
+---
+
+### 3. **Caso de advertencia o validación (Incluyendo `status`, `message` y `errors`)**
+Cuando se detecta algún problema menor que no impide completamente la operación, pero requiere atención.
+
+```javascript name=warning-example.js
+res.status(400).json({
+  status: 'warning',
+  message: 'Algunos datos están incompletos.',
+  errors: {
+    missingFields: ['email', 'password'],
+    details: 'Por favor complete todos los campos requeridos antes de continuar.'
+  }
+});
+```
+
+### Explicación:
+- **`status`**: Indica una advertencia o problema menor (`warning`).
+- **`errors`**: Detalla qué campos están faltando (`missingFields`) y proporciona información descriptiva.
+
+---
+
+### 4. **Caso genérico con datos adicionales**
+Cuando se necesita enviar datos personalizados en la respuesta.
+
+```javascript name=generic-response-example.js
+res.status(200).json({
+  status: 'success',
+  message: 'Operación realizada con éxito.',
+  data: {
+    reportId: 9876,
+    generatedAt: new Date().toISOString(),
+    summary: {
+      totalUsers: 1500,
+      activeUsers: 1200,
+      inactiveUsers: 300
+    }
+  }
+});
+```
+
+### Explicación:
+- **`data`**: Contiene información más detallada, como un resumen de estadísticas o un reporte generado.
+
+---
+
+### 5. **Caso de error interno (500 - Server Error)**
+Cuando ocurre un error interno en el servidor.
+
+```javascript name=internal-server-error-example.js
+res.status(500).json({
+  status: 'error',
+  message: 'Ocurrió un error interno en el servidor.',
+  errors: {
+    code: 'INTERNAL_SERVER_ERROR',
+    details: 'Error al conectar con la base de datos.'
+  }
+});
+```
+
+### Explicación:
+- **`status`**: Indica un error crítico (`error`).
+- **`errors`**: Proporciona detalles técnicos que pueden ayudar al desarrollador a identificar el problema.
+
+---
+
+### Resumen:
+1. **`status`**: Es útil para indicar el estado de la respuesta (`success`, `error`, `warning`).
+2. **`data`**: Se usa para incluir datos adicionales cuando la operación es exitosa.
+3. **`errors`**: Detalla problemas específicos cuando ocurre un error o advertencia.
+
+Estos ejemplos son patrones comunes en APIs RESTful y pueden adaptarse según las necesidades del proyecto.
+
+
+

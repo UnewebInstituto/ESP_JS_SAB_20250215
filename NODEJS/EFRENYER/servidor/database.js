@@ -5,7 +5,7 @@ const {Sequelize} = require('sequelize');
 // a los campos respectivos de la tablas en
 // base de datos
 // Conexión a la base de datos Postgresql
-const sequelize = new Sequelize('carrito_de_compras_hd', 'postgres', '123456', {
+const sequelize = new Sequelize('carrito_de_compras_eb', 'postgres', '123456', {
     host: 'localhost',
     dialect: 'postgres',
     port: 5432

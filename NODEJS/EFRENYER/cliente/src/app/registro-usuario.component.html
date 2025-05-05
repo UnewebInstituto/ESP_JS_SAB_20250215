@@ -1,0 +1,61 @@
+<div class="centrar">
+  <h3>Iniciar sesión</h3>
+  <a href="">Ir al inicio</a>
+</div>
+<form (ngSubmit)="onSubmit()">
+  <div class="row justify-content-center">
+
+      <div class="mb-3 col-md-4">
+        <label for="cedula" class="form-label">cedula de identidad:</label>
+        <input type="email" class="form-control" id="cdeula" [(ngModel)] = "cedula" name="cedula" aria-describedby="cedulaHelp" required >
+        <div id="emailHelp" class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
+      </div>
+
+
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="mb-3 col-md-4">
+      <label for="nombre" class="form-label">nombre</label>
+      <input type="text" class="form-control" id="nombre" [(ngModel)] = "nombre" name="nombre" required>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="mb-3 col-md-4">
+      <label for="apellido" class="form-label">apellido</label>
+      <input type="text" class="form-control" id="apellido" [(ngModel)] = "apellido" name="apellido" required>
+    </div>
+  </div>
+
+
+  <div class="row justify-content-center">
+    <div class="mb-3 col-md-4">
+      <label for="correo_electronico" class="form-label">correo_electronico</label>
+      <input type="text" class="form-control" id="correo_electronico" [(ngModel)] = "correo_electronico" name="correo_electronico" required>
+    </div>
+  </div>
+  
+
+  
+  <div class="row justify-content-center">
+    <div class="mb-3 col-md-4">
+      <label for="Clave" class="form-label">Clave</label>
+      <input type="text" class="form-control" id="Clave" [(ngModel)] = "correo_electronico" name="Clave" required>
+
+      <input type="hidden" name="tipo_usuario" value="VISITANTE">
+    </div>
+  </div>
+
+
+
+
+
+
+  
+  
+    <div class="mb-3 mt-3">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  
+

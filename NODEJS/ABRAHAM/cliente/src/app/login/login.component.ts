@@ -1,11 +1,14 @@
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MensajeService } from '../mensaje.service';
+import { RouterLink, RouterOutlet } from '@angular/router';
+
 
 @Component({
   standalone:true,
   selector: 'app-login',
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule, HttpClientModule,RouterLink, RouterOutlet],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -15,8 +18,7 @@ export class LoginComponent {
   password:string="";
 
    //Se inicializa la clase con el constructor del objeto http
-   constructor(private http:HttpClient) {
-  
+   constructor(private http:HttpClient, private mensajeService:MensajeService) {
    };
 
   onSubmit(){
@@ -28,14 +30,18 @@ export class LoginComponent {
    
     //Envio a traves del método POST
     this.http.post('http://localhost:3003/login', user).subscribe(
-      response=>{
+      (response:any)=>{
+        console.log(response);
         console.log("Login éxitoso");
-        alert("Login éxitoso");
-
+        this.mensajeService.cambiarMensaje(response.error.code ,response.message)
+        // this.mensajeService.cambiarMensaje("El usuario ha sido validado con éxito")
       }, 
-      error=>{
+      (error:any)=>{
+        console.log(error);
         console.log("Error en el login");
-        alert("Error en el login");
+        // this.mensajeService.cambiarMensaje("Error: Usuario o contraseña no validos")
+        this.mensajeService.cambiarMensaje(error.error.error.code , error.error.message)
+        // this.mensajeService.cambiarMensaje(error.error.message)
       })
   }
 }

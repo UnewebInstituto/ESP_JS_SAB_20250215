@@ -1,3 +1,11 @@
 @if (mensaje){
-  <div class = 'alert alert-info'><strong>Atención: {{mensaje}}</strong></div>
+  @if (codigo == 200){
+    <div class = 'alert alert-success'><strong>Éxito: {{mensaje}}</strong></div>
+  }@else if (codigo == 401){
+    <div class = 'alert alert-warning'><strong>Alerta: {{mensaje}}</strong></div>
+  }@else if (codigo == 500){
+    <div class = 'alert alert-danger'><strong>Error: {{mensaje}}</strong></div>
+  }@else {
+    <div class = 'alert alert-secondary'><strong>Atención: {{mensaje}}</strong></div>
+  }
 }

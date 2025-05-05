@@ -7,6 +7,7 @@ const {Sequelize} = require('sequelize');
 const Usuario = require('./models/Usuario');
 //dependencia para el manejo criptografico de la clave
 const crypto = require('crypto');
+const { console } = require('inspector');
 //instancias de las librerias cargadas
 const app = express();
 const PORT = 3001; 
@@ -50,24 +51,63 @@ app.post('/login', async (req,res) =>{
       const user = await Usuario.findOne({where: {correo_electronico:emailTmp}})
       //verificacion 
       if(user && user.clave==generateMD5(passwordTmp)){
-        res.status(200).json({message: 'Login fue procesado con exito.'});
-        console.log('Usuario:' + user.nombre + '' + user.apellido);
+        res.status(200).json({message:'Login fue procesado con éxito.',error:{code:200, detail:'Login fue procesado con éxito.'}});
         console.log('Tipo de usuario:' + user.tipo_usuario);
         console.log('Login fue procesado con exito.');
         console.log('');
       }else{
-        res.status(401).json({message:'Credenciales incorrectas'});
+        res.status(401).json({message:'Credenciales incorrectas',error:{code:401, detail:'Credenciales  '}});
         console.log('');
         console.log('Credenciales incorrectas');
         console.log('');
       }
     }catch(error){
-      res.status(500).json({message:'Error en el servidos'});
+      res.status(500).json({message:'Error en el servidor.', error:{code:500, detail:'Error en el servidor.'}});
       console.log('');
       console.log('Error en el servidos', error);
       console.log('');
     };
 });
+
+app.post('/usuario', async(req,res)=>{ //creacion de los nuevos usuarios
+  const{cedula,nombre,apellido,correo_electronico,clave,tipo_usuario} = req.body;
+  try{
+    //verificar a traves del correo electronico, si el usuario se encuentra registrado
+    //ORM sequelize
+    const usuarioExistente = await Usuario.findOne({where:{correo_electronico}});
+    
+    if(usuarioExistente){
+      //Se devuelve al cliente con el mensaje de error 
+      res.status(401).json({message:'Correo Electronico ya se encuentra Registrado',error:{code:401, detail:'Correo Electronico ya se encuentra Registrado.'}});
+      console.log('');
+      console.log('Usuario existe', error);
+      console.log('');
+    }
+    //el correo electronico no existe, puede crear el nuevo usuario
+   //ORM sequelize
+    const nuevoUsuario = await Usuario.create({
+      cedula,
+      nombre,
+      apellido,
+      correo_electronico,
+      clave: generateMD5(clave),
+      tipo_usuario
+    });
+
+    res.status(200).json({message:'Nuevo Usuario fue registrado con Exito',error:{code:200, detail:'Nuevo Usuario fue registrado con Exito.'}});
+    console.log('');
+    console.log('Nuevo Usuario fue registrado', error);
+    console.log('');
+
+  }catch(error){
+    res.status(500).json({message:'Error en el servidor.', error:{code:500, detail:'Error en el servidor.'}});
+    console.log('');
+    console.log('Error en el servidos', error);
+    console.log('');
+  }
+})
+
+
 
 app.listen(PORT,()=>{
   console.log(`Servidor Corriendo en http://localhost:${PORT}`); 

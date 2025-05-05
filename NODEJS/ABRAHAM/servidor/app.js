@@ -78,17 +78,50 @@ app.post("/login",async(req, res)=>{
     const user= await Usuario.findOne({where: {correo_electronico: emailtmp}})
     //verificación
     if(user && user.clave === generateMD5(passwordtmp)){
-      res.status(200).json({message: "Login procesado con éxito"});
+      res.status(200).json({message: "Login procesado con éxito", error:{code:200, detail:"Login procesado con éxito"}});
       console.log("Login procesado con éxito");
       console.log(`Nombre: ${user.nombre} Apellido: ${user.apellido}`);
-
     }
     else{
-      res.status(401).status.json({message:"Credenciales incorrectas"});
+      res.status(401).json({message:"Credenciales incorrectas", error:{code:401, detail:"credenciales incorrectas"}});
       console.log("Credenciales incorrectas");
+
     }
   } catch (error) {
-    res.status(500).json({message:"Error en el servidor"});
+    res.status(500).json({message:"Error en el servidor", error:{code:500, detail:"Error en el servidor"}});
     console.log("Error en el servidor"+error);
+  }
+})
+
+app.post("/usuario", async(req, res)=>{
+  //corresponde a la creación de nuevos usuarios
+
+  const {cedula, nombre, apellido, correo_electronico, clave, tipo_usuario}=req.body;
+
+  try{
+    //verificar a través del correo electrónico si el usuario se encuentra registrado
+    //Se hace así porque se llaman igual
+    const usuarioExistente=await Usuario.findOne({where:correo_electronico})
+
+    if (usuarioExistente){
+      //Se devuelve al cliente con el mensaje de error
+      res.status(401).json({message:"El correo electrónico ya se encuentra registrado", error:{code:401, detail:"El correo electrónico ya se encuentra registrado"}});
+      console.log("El correo electrónico ya se encuentra registrado");
+    }
+    else{
+    //El correo electrónico no existe, puede crearse el nuevo usuario
+
+      const nuevoUsuario= await Usuario.create(
+        cedula, nombre, apellido, correo_electronico, generatemd5(clave), tipo_usuario
+      )
+      res.status(200).json({message:"Nuevo usuario registrado de forma satisfactoria", error:{code:200, detail:"Nuevo usuario registrado de forma satisfactoria"}});
+      console.log("Nuevo usuario registrado de forma satisfactoria");
+
+
+    }
+  }
+  catch (error) {
+    res.status(500).json({message:"Error en el servidor", error:{code:500, detail:"Error en el servidor"}});
+    console.log("Error en el servidor");
   }
 })

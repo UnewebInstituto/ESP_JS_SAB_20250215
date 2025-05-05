@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { EncabezadoComponent } from './encabezado.component';
 import { LoginComponent } from './login.component';
 import { PieComponent } from './pie.component';
+import { RegistroUsuarioComponent } from './registro-usuario.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ EncabezadoComponent, LoginComponent, PieComponent],
+  imports: [ EncabezadoComponent, LoginComponent, PieComponent, RegistroUsuarioComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
